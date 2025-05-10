@@ -9,7 +9,8 @@ import 'swiper/css/pagination';
 // Import required modules
 import { Autoplay, Pagination } from 'swiper/modules';
 
-// Swiper styles are now in styles.css
+// Import Swiper styles directly in component to ensure they are applied
+import '../styles.css';
 
 const HeroSection = () => {
   // Dữ liệu slides
@@ -43,8 +44,34 @@ const HeroSection = () => {
     }
   ];
 
+  // Using inline styles directly in the component
+
   return (
     <section className="hero-section">
+      <style>
+        {`
+          .swiper-pagination-bullet {
+            width: 10px !important;
+            height: 10px !important;
+            background-color: #89939E !important;
+            opacity: 0.7 !important;
+            margin: 0 5px !important;
+          }
+          .swiper-pagination-bullet-active {
+            width: 13px !important;
+            height: 13px !important;
+            background-color: #4CAF4F !important;
+            opacity: 1 !important;
+            box-shadow: 0 0 3px rgba(76, 175, 79, 0.7) !important;
+          }
+          .swiper-pagination {
+            display: flex !important;
+            justify-content: center !important;
+            align-items: center !important;
+            margin-top: 15px !important;
+          }
+        `}
+      </style>
       <div className="container">
         <Swiper
           spaceBetween={30}

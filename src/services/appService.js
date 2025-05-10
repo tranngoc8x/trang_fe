@@ -58,8 +58,22 @@ export const menuService = {
   }
 };
 
+// Service để gọi API khách hàng
+export const clientService = {
+  // Lấy danh sách khách hàng
+  getClients: (params) => {
+    return apiService.get(API_ENDPOINTS.CLIENTS, params);
+  },
+
+  // Lấy thông tin chi tiết của một khách hàng
+  getClientById: (id) => {
+    return apiService.get(`${API_ENDPOINTS.CLIENTS}/${id}`);
+  }
+};
+
 export default {
   userService,
   productService,
-  menuService
+  menuService,
+  clientService
 };
