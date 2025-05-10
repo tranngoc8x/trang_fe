@@ -6,7 +6,6 @@ import AchievementSection from './components/AchievementSection';
 import CommunitySection from './components/CommunitySection';
 import TestimonialsSection from './components/TestimonialsSection';
 import BlogSection from './components/BlogSection';
-import NewsletterSection from './components/NewsletterSection';
 import Footer from './components/Footer';
 
 function App() {
@@ -21,7 +20,6 @@ function App() {
         <CommunitySection />
         <TestimonialsSection />
         <BlogSection />
-        <NewsletterSection />
       </main>
       <Footer />
     </div>

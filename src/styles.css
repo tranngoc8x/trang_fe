@@ -1,5 +1,5 @@
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
-
+@import "tailwindcss";
 :root {
   --primary-color: #4CAF4F;
   --secondary-color: #263238;
@@ -14,11 +14,7 @@
   --gray-700: #333333;
 }
 
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-}
+
 
 body {
   font-family: 'Inter', sans-serif;
@@ -30,12 +26,6 @@ body {
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-}
-
-.container {
-  max-width: 1440px;
-  margin: 0 auto;
-  padding: 0 1rem;
 }
 
 /* Header Styles */
@@ -962,4 +952,16 @@ footer {
     flex: none;
     width: 100%;
   }
+}
+
+
+@layer components {
+  .container {
+    @apply max-w-[1440px] mx-auto px-4;
+  }
+
+  .btn {
+    @apply px-8 py-3.5 rounded font-medium text-base transition-all duration-300;
+  }
+
 }

@@ -89,8 +89,8 @@ const HeroSection = () => {
           className="hero-swiper"
         >
           {slides.map((slide) => (
-            <SwiperSlide key={slide.id}>
-              <div className="hero-content">
+            <SwiperSlide key={slide.id} className='relative'>
+              <div className="hero-content h-full">
                 {/* Text Content */}
                 <div className="hero-text">
                   <h1>
