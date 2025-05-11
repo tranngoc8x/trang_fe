@@ -1,16 +1,13 @@
 import { useState, useEffect } from 'react';
+import { Link, useLocation } from 'react-router-dom';
 import { menuService } from '@services/appService';
 import { MAIN_MENU_ID } from '@/constants';
 
 const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [menuItems, setMenuItems] = useState([]);
-  const [currentPath, setCurrentPath] = useState('');
-
-  // Lấy đường dẫn hiện tại khi component được mount
-  useEffect(() => {
-    setCurrentPath(window.location.pathname);
-  }, []);
+  const location = useLocation();
+  const currentPath = location.pathname;
   useEffect(() => {
     const fetchMenuData = async () => {
       try {
@@ -33,7 +30,7 @@ const Header = () => {
     <header>
       <div className="container">
         {/* Logo */}
-        <a href="/" className="logo">
+        <Link to="/" className="logo">
           <div style={{ width: '2rem', height: '2rem' }}>
             <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
               <path d="M12 2L2 7L12 12L22 7L12 2Z" fill="#263238" />
@@ -42,33 +39,24 @@ const Header = () => {
             </svg>
           </div>
           <span>Nexcent</span>
-        </a>
+        </Link>
 
         {/* Desktop Navigation */}
         <nav>
           <ul>
+            {/* Các liên kết động từ API */}
             {menuItems && menuItems.map((item) => (
               <li key={item.id}>
-                <a
-                  href={item.url}
+                <Link
+                  to={item.url}
                   className={currentPath === item.url ? 'active' : ''}
                 >
                   {item.title}
-                </a>
+                </Link>
               </li>
             ))}
           </ul>
         </nav>
-
-        {/* Login/Signup Buttons */}
-        <div className="auth-buttons">
-          <a href="/login" className="btn btn-outline">
-            Login
-          </a>
-          <a href="/signup" className="btn btn-primary">
-            Sign up
-          </a>
-        </div>
 
         {/* Mobile Menu Button */}
         <button
@@ -84,22 +72,18 @@ const Header = () => {
         {/* Mobile Menu */}
         <div className={`mobile-menu ${isMenuOpen ? 'active' : ''}`}>
           <ul>
+    
             {menuItems && menuItems.map((item) => (
               <li key={item.id}>
-                <a
-                  href={item.url}
+                <Link
+                  to={item.url}
                   className={currentPath === item.url ? 'active' : ''}
                 >
                   {item.title}
-                </a>
+                </Link>
               </li>
             ))}
-            <li style={{ borderTop: '1px solid #eee', marginTop: '0.5rem', paddingTop: '0.5rem' }}>
-              <a href="/login" style={{ fontWeight: 500 }}>Login</a>
-            </li>
-            <li>
-              <a href="/signup" className="btn btn-primary" style={{ display: 'block', margin: '0.5rem 1rem', textAlign: 'center' }}>Sign up</a>
-            </li>
+           
           </ul>
         </div>
       </div>

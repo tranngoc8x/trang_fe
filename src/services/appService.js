@@ -71,9 +71,32 @@ export const clientService = {
   }
 };
 
+// Service để gọi API slides
+export const slideService = {
+  // Lấy danh sách slides
+  getSlides: (params) => {
+    return apiService.get(API_ENDPOINTS.SLIDES, params);
+  },
+
+  // Lấy thông tin chi tiết của một slide
+  getSlideById: (id) => {
+    return apiService.get(`${API_ENDPOINTS.SLIDES}/${id}`);
+  }
+};
+
+// Service để gọi API home page content
+export const homePageService = {
+  // Lấy nội dung trang chủ
+  getHomePageContent: (params) => {
+    return apiService.get(API_ENDPOINTS.HOME_PAGE_CONTENT, params);
+  }
+};
+
 export default {
   userService,
   productService,
   menuService,
-  clientService
+  clientService,
+  slideService,
+  homePageService
 };

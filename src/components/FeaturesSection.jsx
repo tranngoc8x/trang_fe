@@ -1,5 +1,5 @@
-const FeaturesSection = () => {
-  const features = [
+const FeaturesSection = ({service}) => {
+  const services = [
     {
       id: 1,
       icon: (
@@ -42,14 +42,13 @@ const FeaturesSection = () => {
       <div className="container">
         {/* Features Grid Section */}
         <div className="section-title">
-          <h2>Designed for businesses like yours</h2>
-          <p>
-            Our membership management software that will help you run your entire membership program
+          <h2>{service?.title}</h2>
+          <p dangerouslySetInnerHTML={{__html: service?.description}}>
           </p>
         </div>
 
         <div className="features-grid">
-          {features.map((feature) => (
+          {services.map((feature) => (
             <div key={feature.id} className="feature-card">
               <div className="feature-icon">
                 {feature.icon}
@@ -64,75 +63,6 @@ const FeaturesSection = () => {
           <a href="/features" className="btn btn-outline">
             Learn More
           </a>
-        </div>
-
-        {/* Feature Highlight Section */}
-        <div className="feature-highlight">
-          <div className="feature-highlight-image">
-            <svg
-              viewBox="0 0 500 400"
-              fill="none"
-              xmlns="http://www.w3.org/2000/svg"
-              className="feature-highlight-img"
-              aria-label="Feature illustration"
-            >
-              <rect width="500" height="400" rx="10" fill="#F5F7FA" />
-
-              {/* Dashboard Background */}
-              <rect x="50" y="50" width="400" height="300" rx="8" fill="#FFFFFF" stroke="#E6E6E6" strokeWidth="1" />
-
-              {/* Header */}
-              <rect x="50" y="50" width="400" height="50" rx="8 8 0 0" fill="#4CAF4F" opacity="0.1" />
-
-              {/* Sidebar */}
-              <rect x="50" y="100" width="100" height="250" fill="#F5F7FA" />
-
-              {/* Menu Items */}
-              <rect x="70" y="120" width="60" height="10" rx="2" fill="#4CAF4F" />
-              <rect x="70" y="150" width="60" height="10" rx="2" fill="#E6E6E6" />
-              <rect x="70" y="180" width="60" height="10" rx="2" fill="#E6E6E6" />
-              <rect x="70" y="210" width="60" height="10" rx="2" fill="#E6E6E6" />
-              <rect x="70" y="240" width="60" height="10" rx="2" fill="#E6E6E6" />
-
-              {/* Content Area - Charts */}
-              <rect x="170" y="120" width="120" height="80" rx="4" fill="#FFFFFF" stroke="#E6E6E6" strokeWidth="1" />
-              <circle cx="230" cy="160" r="30" fill="#4CAF4F" opacity="0.2" />
-              <path d="M230 130 A30 30 0 0 1 260 160 L230 160 Z" fill="#4CAF4F" />
-
-              <rect x="310" y="120" width="120" height="80" rx="4" fill="#FFFFFF" stroke="#E6E6E6" strokeWidth="1" />
-              <rect x="330" y="170" width="20" height="20" rx="2" fill="#4CAF4F" opacity="0.2" />
-              <rect x="360" y="160" width="20" height="30" rx="2" fill="#4CAF4F" opacity="0.4" />
-              <rect x="390" y="140" width="20" height="50" rx="2" fill="#4CAF4F" />
-
-              {/* Content Area - Table */}
-              <rect x="170" y="220" width="260" height="110" rx="4" fill="#FFFFFF" stroke="#E6E6E6" strokeWidth="1" />
-              <line x1="170" y1="250" x2="430" y2="250" stroke="#E6E6E6" strokeWidth="1" />
-              <line x1="170" y1="280" x2="430" y2="280" stroke="#E6E6E6" strokeWidth="1" />
-              <line x1="170" y1="310" x2="430" y2="310" stroke="#E6E6E6" strokeWidth="1" />
-
-              <rect x="190" y="260" width="40" height="10" rx="2" fill="#E6E6E6" />
-              <rect x="190" y="290" width="40" height="10" rx="2" fill="#E6E6E6" />
-              <rect x="190" y="320" width="40" height="10" rx="2" fill="#E6E6E6" />
-
-              <rect x="270" y="260" width="60" height="10" rx="2" fill="#E6E6E6" />
-              <rect x="270" y="290" width="60" height="10" rx="2" fill="#E6E6E6" />
-              <rect x="270" y="320" width="60" height="10" rx="2" fill="#E6E6E6" />
-
-              <rect x="370" y="260" width="40" height="10" rx="2" fill="#4CAF4F" opacity="0.2" />
-              <rect x="370" y="290" width="40" height="10" rx="2" fill="#4CAF4F" opacity="0.2" />
-              <rect x="370" y="320" width="40" height="10" rx="2" fill="#4CAF4F" opacity="0.2" />
-            </svg>
-          </div>
-
-          <div className="feature-highlight-content">
-            <h2>How to design your site footer like we did</h2>
-            <p>
-              Donec a eros justo. Fusce egestas tristique ultrices. Nam tempor, augue nec tincidunt molestie, massa nunc varius arcu, at scelerisque elit erat a magna. Donec quis erat at libero ultrices mollis. In hac habitasse platea dictumst. Vivamus vehicula leo dui, at porta nisi facilisis finibus. In euismod augue vitae nisi ultricies, non aliquet urna tincidunt. Integer in nisi eget nulla commodo faucibus efficitur quis massa. Praesent felis est, finibus et nisi ac, hendrerit venenatis libero. Donec consectetur faucibus ipsum id gravida.
-            </p>
-            <a href="/learn-more" className="btn btn-primary">
-              Learn More
-            </a>
-          </div>
         </div>
       </div>
     </section>

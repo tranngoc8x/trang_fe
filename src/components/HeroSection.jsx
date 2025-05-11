@@ -1,5 +1,5 @@
 // React imports
-import heroImage from '../assets/images/hero-illustration.svg';
+import { useState, useEffect } from 'react';
 // Import Swiper React components
 import { Swiper, SwiperSlide } from 'swiper/react';
 // Import Swiper styles
@@ -8,41 +8,42 @@ import 'swiper/css/pagination';
 // import 'swiper/css/navigation';
 // Import required modules
 import { Autoplay, Pagination } from 'swiper/modules';
+// Import services
+import { slideService } from '@services/appService';
 
 // Import Swiper styles directly in component to ensure they are applied
 import '../styles.css';
 
 const HeroSection = () => {
-  // Dữ liệu slides
-  const slides = [
-    {
-      id: 1,
-      title: 'Lessons and insights',
-      titleSpan: 'from 8 years',
-      description: 'Where to grow your business as a photographer: site or social media?',
-      buttonText: 'Register',
-      buttonLink: '/register',
-      image: heroImage
-    },
-    {
-      id: 2,
-      title: 'Build your business',
-      titleSpan: 'with our tools',
-      description: 'Discover how our platform can help you reach more customers and grow your brand.',
-      buttonText: 'Learn More',
-      buttonLink: '/learn-more',
-      image: heroImage
-    },
-    {
-      id: 3,
-      title: 'Take your career',
-      titleSpan: 'to the next level',
-      description: 'Join thousands of professionals who have transformed their business with our solutions.',
-      buttonText: 'Get Started',
-      buttonLink: '/get-started',
-      image: heroImage
-    }
-  ];
+  // Default slides data as fallback
+
+
+  // State for slides data
+  const [slides, setSlides] = useState([]);
+  const [loading, setLoading] = useState(true);
+
+  // Fetch slides data from API
+  useEffect(() => {
+    const fetchSlides = async () => {
+      try {
+        setLoading(true);
+        const response = await slideService.getSlides({populate: 'image'});
+
+        if (response && response.data && response.data.length > 0) {
+          setSlides(response.data);
+        }
+      } catch (err) {
+        console.error('Error fetching slides:', err);
+        // Fallback to default slides on error is automatic since we initialized with defaultSlides
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchSlides();
+  }, []);
+
+
 
   // Using inline styles directly in the component
 
@@ -88,35 +89,39 @@ const HeroSection = () => {
           modules={[Autoplay, Pagination]}
           className="hero-swiper"
         >
-          {slides.map((slide) => (
-            <SwiperSlide key={slide.id} className='relative'>
-              <div className="hero-content h-full">
-                {/* Text Content */}
-                <div className="hero-text">
-                  <h1>
-                    {slide.title} <span>{slide.titleSpan}</span>
-                  </h1>
-                  <p>
-                    {slide.description}
-                  </p>
-                  <a
-                    href={slide.buttonLink}
-                    className="btn btn-primary"
-                  >
-                    {slide.buttonText}
-                  </a>
-                </div>
-
-                {/* Hero Image */}
-                <div className="hero-image">
-                  <img
-                    src={slide.image}
-                    alt="Business growth illustration"
-                  />
-                </div>
+          {loading ? (
+            <SwiperSlide className='relative'>
+              <div className="hero-content h-full flex justify-center items-center">
+                <p className="text-gray-500">Loading slides...</p>
               </div>
             </SwiperSlide>
-          ))}
+          ) : (
+            slides.map((slide) => (
+              <SwiperSlide key={slide.id} className='relative'>
+                <div
+                  className="hero-content h-full"
+                  style={{
+                    backgroundImage: `url(${slide?.image.url ? 'http://localhost:1337' + slide.image.url : ''})`,
+                    backgroundSize: 'contain',
+                    backgroundPosition: `${slide?.position[0] || 'center'} center`,
+                    backgroundRepeat: 'no-repeat'
+                  }}
+                >
+                  {/* Text Content */}
+                  <div className="absolute top-0 left-0 h-full w-full flex items-center" dangerouslySetInnerHTML={{__html: slide.content}} />
+                
+
+                  {/* Hero Image - Hidden but keeping for reference */}
+                  <div className="hero-image opacity-0">
+                    <img
+                      src={slide?.image.url ? 'http://localhost:1337' + slide.image.url : ''}
+                      alt="Business growth illustration"
+                    />
+                  </div>
+                </div>
+              </SwiperSlide>
+            ))
+          )}
         </Swiper>
       </div>
     </section>

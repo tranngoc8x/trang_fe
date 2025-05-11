@@ -1,4 +1,4 @@
-const BlogSection = () => {
+const BlogSection = ({news}) => {
   const blogPosts = [
     {
       id: 1,
@@ -39,11 +39,8 @@ const BlogSection = () => {
     <section className="blog-section">
       <div className="container">
         <div className="section-title">
-          <h2>Caring is the new marketing</h2>
-          <p>
-            The Nexcent blog is the best place to read about the latest membership insights,
-            trends and more. See who's joining the community, read about how our community
-            are increasing their membership income and lots more.
+          <h2>{news?.title}</h2>
+          <p dangerouslySetInnerHTML={{__html: news?.description}}>
           </p>
         </div>
 
@@ -61,14 +58,10 @@ const BlogSection = () => {
                   <h3 className="blog-title">{post.title}</h3>
                   <p className="blog-date">{post.date}</p>
                 </div>
-
-                <a href={`/blog/${post.id}`} className="blog-link">
-                  Read More
-                  <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <path d="M5 12H19" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
-                    <path d="M12 5L19 12L12 19" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
-                  </svg>
+                <a href="/" className="btn btn-primary">
+                  {news?.button_name}
                 </a>
+                
               </div>
             </div>
           ))}

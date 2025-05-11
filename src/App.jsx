@@ -1,25 +1,13 @@
 import Header from './components/Header';
-import HeroSection from './components/HeroSection';
-import ClientsSection from './components/ClientsSection';
-import FeaturesSection from './components/FeaturesSection';
-import AchievementSection from './components/AchievementSection';
-import CommunitySection from './components/CommunitySection';
-import TestimonialsSection from './components/TestimonialsSection';
-import BlogSection from './components/BlogSection';
 import Footer from './components/Footer';
+import { Outlet } from 'react-router-dom';
 
 function App() {
   return (
     <div className="min-h-screen flex flex-col">
       <Header />
       <main className="flex-grow">
-        <HeroSection />
-        <ClientsSection />
-        <FeaturesSection />
-        <AchievementSection />
-        <CommunitySection />
-        <TestimonialsSection />
-        <BlogSection />
+        <Outlet />
       </main>
       <Footer />
     </div>
