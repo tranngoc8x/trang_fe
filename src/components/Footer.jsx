@@ -1,4 +1,12 @@
+import { useGlobalConfig } from '@/contexts/GlobalConfigContext';
+
 const Footer = () => {
+  const {
+    getSiteName,
+    getLogoUrl2,
+    isReady
+  } = useGlobalConfig();
+
   return (
     <footer>
       <div className="container">
@@ -7,9 +15,9 @@ const Footer = () => {
           <div className="footer-logo">
             <a href="/">
               <div style={{ width: '2rem', height: '2rem' }}>
-                <img src="/favicon.jpg" alt="Kachivina" />
+                <img src={isReady() ? getLogoUrl2() : "/favicon.jpg"} alt={isReady() ? getSiteName() : "Kachivina"} />
               </div>
-              <span>Kachivina</span>
+              <span>{isReady() ? getSiteName() : "Kachivina"}</span>
             </a>
 
             <div className="social-icons">

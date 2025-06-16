@@ -1,22 +1,22 @@
 import { useState, useEffect } from 'react';
-import { useTranslation } from 'react-i18next';
 import { useLanguage } from '../contexts/LanguageContext';
+import { useGlobalConfig } from '../contexts/GlobalConfigContext';
 import { homePageService } from '@services/appService';
 import HeroSection from '@/components/HeroSection';
 import ClientsSection from '@/components/ClientsSection';
 import FeaturesSection from '@/components/FeaturesSection';
 import AboutSection from '@/components/AboutSection';
 import AchievementSection from '@/components/AchievementSection';
-import CommunitySection from '@/components/CommunitySection';
 import BlogSection from '@/components/BlogSection';
+import PageWrapper from '@/components/PageWrapper';
 
 
 const HomePage = () => {
   const [homePageData, setHomePageData] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
-  const { t } = useTranslation();
   const { currentLanguage } = useLanguage();
+  const { getSiteDescription } = useGlobalConfig();
 
   useEffect(() => {
     const fetchHomePageContent = async () => {
@@ -94,7 +94,11 @@ const HomePage = () => {
   }
 
   return (
-    <>
+    <PageWrapper
+      title="" // Trang chủ không cần title prefix
+      description={getSiteDescription()}
+      type="website"
+    >
       <HeroSection homePageData={homePageData} />
       <ClientsSection partner={homePageData?.partner} />
       <FeaturesSection service={homePageData?.service} />
@@ -103,7 +107,7 @@ const HomePage = () => {
       <BlogSection news={homePageData?.news} />
 
       {/* Add more sections as needed */}
-    </>
+    </PageWrapper>
   );
 };
 

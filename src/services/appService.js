@@ -169,20 +169,9 @@ export const globalService = {
 
       console.log('🌐 Đang tải global config từ API...');
 
-      // Mặc định populate tất cả các trường
-      const defaultParams = {
-        populate: '*',
-        ...params
-      };
 
       // Gọi API trực tiếp với axios và base URL admin
-      const axiosResponse = await axios.get(`https://admin.kachivina.vn${API_ENDPOINTS.GLOBAL}`, {
-        timeout: 10000,
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        params: defaultParams
-      });
+      const axiosResponse = await apiService.get(API_ENDPOINTS.GLOBAL, params);
 
       // Lưu vào cache (chỉ lưu data, không lưu toàn bộ axios response)
       const response = axiosResponse.data;

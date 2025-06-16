@@ -1,9 +1,9 @@
 import { useState, useEffect } from 'react';
 import { Link, useLocation } from 'react-router-dom';
-import { useTranslation } from 'react-i18next';
 import { menuService } from '@services/appService';
 import { MAIN_MENU_ID } from '@/constants';
 import { useLanguage } from '../contexts/LanguageContext';
+import { useGlobalConfig } from '../contexts/GlobalConfigContext';
 import LanguageSwitcher from './LanguageSwitcher';
 
 const Header = () => {
@@ -11,8 +11,14 @@ const Header = () => {
   const [menuItems, setMenuItems] = useState([]);
   const location = useLocation();
   const currentPath = location.pathname;
-  const { t } = useTranslation();
   const { currentLanguage, getLocalizedPath } = useLanguage();
+
+  // Get global configuration
+  const {
+    getSiteName,
+    getLogoUrl,
+    isReady
+  } = useGlobalConfig();
   useEffect(() => {
     const fetchMenuData = async () => {
       try {
@@ -37,9 +43,12 @@ const Header = () => {
         {/* Logo */}
         <Link to={getLocalizedPath('/')} className="logo">
           <div style={{ width: '2rem', height: '2rem' }}>
-            <img src="/favicon.jpg" alt="Kachivina" />
+            <img
+              src={isReady() ? getLogoUrl() : "/favicon.jpg"}
+              alt={isReady() ? getSiteName() : "Kachivina"}
+            />
           </div>
-          <span>Kachivina</span>
+          <span>{isReady() ? getSiteName() : "Kachivina"}</span>
         </Link>
 
         {/* Desktop Navigation */}

@@ -50,7 +50,7 @@ export const globalConfigUtils = {
   getFormattedPhone: (globalData) => {
     const phone = globalData?.contact?.phone;
     if (!phone) return null;
-    
+
     // Format phone number (simple Vietnamese format)
     return phone.replace(/(\d{4})(\d{3})(\d{3})/, '$1 $2 $3');
   },
@@ -123,7 +123,7 @@ export const globalConfigUtils = {
 
     const tags = [];
     const seo = globalData.seo || {};
-    
+
     // Title
     const title = pageTitle || seo.metaTitle || globalData.siteName;
     if (title) {
@@ -206,7 +206,7 @@ export const GLOBAL_CONFIG_CONSTANTS = {
   DEFAULT_TIMEOUT: 10000, // 10 seconds
   DEFAULT_LOGO: '/default-logo.png',
   DEFAULT_FAVICON: '/favicon.ico',
-  
+
   // Social media platforms
   SOCIAL_PLATFORMS: {
     FACEBOOK: 'facebook',
@@ -228,7 +228,7 @@ export const GLOBAL_CONFIG_CONSTANTS = {
 
 // Default export
 export default {
-  globalService,
+  globalService: globalService,
   globalConfigUtils,
   GLOBAL_CONFIG_CONSTANTS
 };
