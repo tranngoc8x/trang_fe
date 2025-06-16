@@ -1,4 +1,6 @@
 import { useState, useEffect } from 'react';
+import { useTranslation } from 'react-i18next';
+import { useLanguage } from '../contexts/LanguageContext';
 import { homePageService } from '@services/appService';
 import HeroSection from '@/components/HeroSection';
 import ClientsSection from '@/components/ClientsSection';
@@ -13,6 +15,8 @@ const HomePage = () => {
   const [homePageData, setHomePageData] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+  const { t } = useTranslation();
+  const { currentLanguage } = useLanguage();
 
   useEffect(() => {
     const fetchHomePageContent = async () => {
@@ -59,9 +63,9 @@ const HomePage = () => {
                 }
               }
             },
-          
+
           }
-        });
+        }, currentLanguage);
 
         if (response && response.data) {
           setHomePageData(response.data);
@@ -76,7 +80,7 @@ const HomePage = () => {
     };
 
     fetchHomePageContent();
-  }, []);
+  }, [currentLanguage]);
 
   // Hiển thị trạng thái loading hoặc error nếu cần
   if (loading) {

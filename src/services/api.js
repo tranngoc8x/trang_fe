@@ -5,7 +5,7 @@ const API_ACCESS_TOKEN = import.meta.env.VITE_API_ACCESS_TOKEN;
 
 // Tạo một instance của axios với cấu hình mặc định
 const api = axios.create({
-  baseURL: 'http://localhost:1337', // API endpoint local
+  baseURL: 'https://assets.kachivina.vn', // API endpoint local
   timeout: 10000, // Thời gian timeout cho mỗi request (ms)
   headers: {
     'Content-Type': 'application/json',

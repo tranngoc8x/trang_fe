@@ -1,0 +1,72 @@
+{
+  "navigation": {
+    "home": "Trang chủ",
+    "about": "Giới thiệu",
+    "products": "Sản phẩm & Dịch vụ",
+    "pricing": "Báo giá & Tư vấn",
+    "projects": "Dự án tiêu biểu",
+    "contact": "Liên hệ"
+  },
+  "common": {
+    "loading": "Đang tải...",
+    "error": "Có lỗi xảy ra",
+    "readMore": "Xem thêm",
+    "backToHome": "Về trang chủ",
+    "language": "Ngôn ngữ",
+    "vietnamese": "Tiếng Việt",
+    "english": "English"
+  },
+  "homepage": {
+    "hero": {
+      "title": "Chào mừng đến với Kachivina",
+      "subtitle": "Giải pháp công nghệ hàng đầu",
+      "description": "Chúng tôi cung cấp các giải pháp công nghệ tiên tiến để giúp doanh nghiệp của bạn phát triển."
+    },
+    "features": {
+      "title": "Dịch vụ của chúng tôi",
+      "subtitle": "Những gì chúng tôi có thể làm cho bạn"
+    },
+    "about": {
+      "title": "Về chúng tôi",
+      "subtitle": "Tìm hiểu thêm về Kachivina"
+    },
+    "clients": {
+      "title": "Khách hàng của chúng tôi",
+      "subtitle": "Những đối tác tin cậy"
+    },
+    "achievements": {
+      "title": "Thành tựu",
+      "subtitle": "Những con số ấn tượng"
+    },
+    "blog": {
+      "title": "Tin tức & Blog",
+      "subtitle": "Cập nhật thông tin mới nhất"
+    }
+  },
+  "about": {
+    "title": "Về Chúng Tôi",
+    "subtitle": "Tìm hiểu thêm về hành trình và sứ mệnh của Kachivina"
+  },
+  "products": {
+    "title": "Sản phẩm & Dịch vụ",
+    "subtitle": "Khám phá các giải pháp công nghệ của chúng tôi"
+  },
+  "pricing": {
+    "title": "Báo giá & Tư vấn",
+    "subtitle": "Nhận báo giá và tư vấn miễn phí"
+  },
+  "projects": {
+    "title": "Dự án tiêu biểu",
+    "subtitle": "Những dự án thành công chúng tôi đã thực hiện"
+  },
+  "contact": {
+    "title": "Liên hệ",
+    "subtitle": "Hãy liên hệ với chúng tôi để được hỗ trợ"
+  },
+  "notFound": {
+    "title": "Trang không tồn tại",
+    "message": "Xin lỗi, trang bạn đang tìm kiếm không tồn tại hoặc đã được di chuyển.",
+    "backHome": "Về trang chủ",
+    "suggestions": "Hoặc thử các liên kết sau:"
+  }
+}

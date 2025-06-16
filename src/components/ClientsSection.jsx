@@ -10,7 +10,7 @@ import { useState, useEffect } from 'react';
 // Import services
 import { clientService } from '@services/appService';
 
-const ClientsSection = ({partner}) => {
+const ClientsSection = ({ partner }) => {
   // State for clients data
   const [clients, setClients] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -21,7 +21,7 @@ const ClientsSection = ({partner}) => {
     const fetchClients = async () => {
       try {
         setLoading(true);
-        const {data} = await clientService.getClients({populate:'logo'});
+        const { data } = await clientService.getClients({ populate: 'logo' });
 
         if (data) {
           setClients(data);
@@ -42,8 +42,8 @@ const ClientsSection = ({partner}) => {
       <div className="container mx-auto px-4">
         <div className="text-center mb-4">
           <h2 className="text-3xl font-semibold text-gray-700 mb-4">{partner?.title}</h2>
-          <p className="text-gray-500 max-w-2xl mx-auto" dangerouslySetInnerHTML={{__html: partner?.description}}>
-            
+          <p className="text-gray-500 max-w-2xl mx-auto" dangerouslySetInnerHTML={{ __html: partner?.description }}>
+
           </p>
         </div>
 
@@ -122,18 +122,18 @@ const ClientsSection = ({partner}) => {
                   <div className="flex items-center justify-center flex-col shadow-md rounded-md">
                     {client && client.logo && client.logo.url ? (
                       <a href={client?.website} target="_blank" rel="noopener noreferrer">
-                      <img
-                        src={`http://localhost:1337${client?.logo.url}`}
-                        alt={client?.title || 'Client logo'}
-                        className="max-h-16 w-auto"
-                      />
+                        <img
+                          src={`https://assets.kachivina.vn${client?.logo.url}`}
+                          alt={client?.title || 'Client logo'}
+                          className="max-h-16 w-auto"
+                        />
                       </a>
-                    ) :null}
-                      <div className="p-2 mt-2 flex items-center justify-center">
+                    ) : null}
+                    <div className="p-2 mt-2 flex items-center justify-center">
                       <a href={client?.website} target="_blank" rel="noopener noreferrer">
                         <span className="text-gray-600 font-medium">{client ? client.title : 'Client'}</span>
-                        </a>
-                      </div>
+                      </a>
+                    </div>
                   </div>
                 </SwiperSlide>
               ))}

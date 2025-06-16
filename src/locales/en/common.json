@@ -1,0 +1,72 @@
+{
+  "navigation": {
+    "home": "Home",
+    "about": "About",
+    "products": "Products & Services",
+    "pricing": "Pricing & Consultation",
+    "projects": "Featured Projects",
+    "contact": "Contact"
+  },
+  "common": {
+    "loading": "Loading...",
+    "error": "An error occurred",
+    "readMore": "Read more",
+    "backToHome": "Back to home",
+    "language": "Language",
+    "vietnamese": "Tiếng Việt",
+    "english": "English"
+  },
+  "homepage": {
+    "hero": {
+      "title": "Welcome to Kachivina",
+      "subtitle": "Leading Technology Solutions",
+      "description": "We provide advanced technology solutions to help your business grow."
+    },
+    "features": {
+      "title": "Our Services",
+      "subtitle": "What we can do for you"
+    },
+    "about": {
+      "title": "About Us",
+      "subtitle": "Learn more about Kachivina"
+    },
+    "clients": {
+      "title": "Our Clients",
+      "subtitle": "Trusted partners"
+    },
+    "achievements": {
+      "title": "Achievements",
+      "subtitle": "Impressive numbers"
+    },
+    "blog": {
+      "title": "News & Blog",
+      "subtitle": "Latest updates"
+    }
+  },
+  "about": {
+    "title": "About Us",
+    "subtitle": "Learn more about Kachivina's journey and mission"
+  },
+  "products": {
+    "title": "Products & Services",
+    "subtitle": "Explore our technology solutions"
+  },
+  "pricing": {
+    "title": "Pricing & Consultation",
+    "subtitle": "Get free quotes and consultation"
+  },
+  "projects": {
+    "title": "Featured Projects",
+    "subtitle": "Successful projects we have completed"
+  },
+  "contact": {
+    "title": "Contact",
+    "subtitle": "Get in touch with us for support"
+  },
+  "notFound": {
+    "title": "Page Not Found",
+    "message": "Sorry, the page you are looking for does not exist or has been moved.",
+    "backHome": "Back to home",
+    "suggestions": "Or try these links:"
+  }
+}

@@ -27,7 +27,7 @@ const HeroSection = () => {
     const fetchSlides = async () => {
       try {
         setLoading(true);
-        const response = await slideService.getSlides({populate: 'image'});
+        const response = await slideService.getSlides({ populate: 'image' });
 
         if (response && response.data && response.data.length > 0) {
           setSlides(response.data);
@@ -101,20 +101,20 @@ const HeroSection = () => {
                 <div
                   className="hero-content h-full"
                   style={{
-                    backgroundImage: `url(${slide?.image.url ? 'http://localhost:1337' + slide.image.url : ''})`,
+                    backgroundImage: `url(${slide?.image.url ? 'https://assets.kachivina.vn' + slide.image.url : ''})`,
                     backgroundSize: 'contain',
                     backgroundPosition: `${slide?.position[0] || 'center'} center`,
                     backgroundRepeat: 'no-repeat'
                   }}
                 >
                   {/* Text Content */}
-                  <div className="absolute top-0 left-0 h-full w-full flex items-center" dangerouslySetInnerHTML={{__html: slide.content}} />
-                
+                  <div className="absolute top-0 left-0 h-full w-full flex items-center" dangerouslySetInnerHTML={{ __html: slide.content }} />
+
 
                   {/* Hero Image - Hidden but keeping for reference */}
                   <div className="hero-image opacity-0">
                     <img
-                      src={slide?.image.url ? 'http://localhost:1337' + slide.image.url : ''}
+                      src={slide?.image.url ? 'https://assets.kachivina.vn' + slide.image.url : ''}
                       alt="Business growth illustration"
                     />
                   </div>

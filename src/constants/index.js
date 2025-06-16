@@ -11,6 +11,13 @@ export const API_ENDPOINTS = {
   CLIENTS: '/api/khach-hangs',
   SLIDES: '/api/slides',
   HOME_PAGE_CONTENT: '/api/home-page-content',
+  ABOUT_USES: '/api/about-uses',
+  PRODUCTS: '/api/products',
+  PRODUCT_DETAIL: '/api/products',
+  PRICING: '/api/bao-gia-and-tu-vans',
+  PROJECTS: '/api/articles',
+  PAGE: '/api/static-pages',
+  GLOBAL: '/api/global',
 };
 
 // Các hằng số khác có thể được thêm vào đây

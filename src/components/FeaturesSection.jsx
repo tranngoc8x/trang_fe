@@ -1,4 +1,4 @@
-const FeaturesSection = ({service}) => {
+const FeaturesSection = ({ service }) => {
   const services = [
     {
       id: 1,
@@ -43,7 +43,7 @@ const FeaturesSection = ({service}) => {
         {/* Features Grid Section */}
         <div className="section-title">
           <h2>{service?.title}</h2>
-          <p dangerouslySetInnerHTML={{__html: service?.description}}>
+          <p dangerouslySetInnerHTML={{ __html: service?.description }}>
           </p>
         </div>
 
@@ -60,7 +60,7 @@ const FeaturesSection = ({service}) => {
         </div>
 
         <div className="learn-more-btn">
-          <a href="/features" className="btn btn-outline">
+          <a href="/san-pham-dich-vu" className="btn btn-outline">
             Learn More
           </a>
         </div>

@@ -16,5 +16,13 @@ export default defineConfig({
       '@pages': path.resolve(__dirname, './src/pages'),
       '@sections': path.resolve(__dirname, './src/components/sections')
     }
+  },
+  // Cấu hình server để hỗ trợ client-side routing
+  server: {
+    historyApiFallback: true,
+  },
+  // Cấu hình preview server (production build)
+  preview: {
+    historyApiFallback: true,
   }
 })

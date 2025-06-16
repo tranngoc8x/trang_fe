@@ -1,17 +1,22 @@
 import { useState, useEffect } from 'react';
 import { Link, useLocation } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
 import { menuService } from '@services/appService';
 import { MAIN_MENU_ID } from '@/constants';
+import { useLanguage } from '../contexts/LanguageContext';
+import LanguageSwitcher from './LanguageSwitcher';
 
 const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [menuItems, setMenuItems] = useState([]);
   const location = useLocation();
   const currentPath = location.pathname;
+  const { t } = useTranslation();
+  const { currentLanguage, getLocalizedPath } = useLanguage();
   useEffect(() => {
     const fetchMenuData = async () => {
       try {
-        const {data} = await menuService.getTreeMenuById(MAIN_MENU_ID);
+        const { data } = await menuService.getTreeMenuById(MAIN_MENU_ID, currentLanguage);
         if (data && data.items) {
           setMenuItems(data.items);
         }
@@ -21,7 +26,7 @@ const Header = () => {
     };
 
     fetchMenuData();
-  }, []);
+  }, [currentLanguage]);
   const toggleMenu = () => {
     setIsMenuOpen(!isMenuOpen);
   };
@@ -30,31 +35,63 @@ const Header = () => {
     <header>
       <div className="container">
         {/* Logo */}
-        <Link to="/" className="logo">
+        <Link to={getLocalizedPath('/')} className="logo">
           <div style={{ width: '2rem', height: '2rem' }}>
-            <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-              <path d="M12 2L2 7L12 12L22 7L12 2Z" fill="#263238" />
-              <path d="M2 17L12 22L22 17" fill="#263238" />
-              <path d="M2 12L12 17L22 12" fill="#4CAF4F" />
-            </svg>
+            <img src="/favicon.jpg" alt="Kachivina" />
           </div>
-          <span>Nexcent</span>
+          <span>Kachivina</span>
         </Link>
 
         {/* Desktop Navigation */}
         <nav>
-          <ul>
-            {/* Các liên kết động từ API */}
+          <ul className="flex space-x-4 items-center">
             {menuItems && menuItems.map((item) => (
-              <li key={item.id}>
+              <li
+                key={item.id}
+                className={
+                  (item.children && item.children.length > 0
+                    ? 'relative group has-children'
+                    : '') +
+                  ' flex items-center'
+                }
+              >
                 <Link
                   to={item.url}
-                  className={currentPath === item.url ? 'active' : ''}
+                  className={
+                    (currentPath === item.url ? 'active text-primary' : 'text-gray-700 hover:text-primary') +
+                    ' px-3 py-2 rounded transition-colors duration-200'
+                  }
                 >
                   {item.title}
                 </Link>
+                {/* Submenu (nếu có) */}
+                {item.children && item.children.length > 0 && (
+                  <div
+                    className="absolute left-0 top-full z-30 min-w-[180px] bg-white shadow-lg rounded-md py-1 mt-0 hidden group-hover:block group-hover:pointer-events-auto pointer-events-none"
+                  >
+                    <ul className="flex flex-col space-y-2 gap-1">
+                      {item.children.map((child) => (
+                        <li key={child.id}>
+                          <Link
+                            to={child.url}
+                            className={
+                              (currentPath === child.url ? 'active text-primary' : 'text-gray-700 hover:text-primary') +
+                              ' block px-4 py-2 whitespace-nowrap transition-colors duration-200'
+                            }
+                          >
+                            {child.title}
+                          </Link>
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+                )}
               </li>
             ))}
+            {/* Language Switcher */}
+            <li>
+              <LanguageSwitcher />
+            </li>
           </ul>
         </nav>
 
@@ -72,18 +109,31 @@ const Header = () => {
         {/* Mobile Menu */}
         <div className={`mobile-menu ${isMenuOpen ? 'active' : ''}`}>
           <ul>
-    
             {menuItems && menuItems.map((item) => (
-              <li key={item.id}>
+              <li key={item.id} className={item.children && item.children.length > 0 ? 'has-children' : ''}>
                 <Link
                   to={item.url}
                   className={currentPath === item.url ? 'active' : ''}
                 >
                   {item.title}
                 </Link>
+                {/* Submenu (nếu có) */}
+                {item.children && item.children.length > 0 && (
+                  <ul className="submenu">
+                    {item.children.map((child) => (
+                      <li key={child.id}>
+                        <Link
+                          to={child.url}
+                          className={currentPath === child.url ? 'active' : ''}
+                        >
+                          {child.title}
+                        </Link>
+                      </li>
+                    ))}
+                  </ul>
+                )}
               </li>
             ))}
-           
           </ul>
         </div>
       </div>
