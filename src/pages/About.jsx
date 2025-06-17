@@ -1,10 +1,13 @@
 import React, { useState, useEffect } from 'react';
 import { aboutService } from '@services/appService';
+import SimpleSEOHead from '@/seo/components/SimpleSEOHead';
 
 const About = () => {
   const [aboutData, setAboutData] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+
+
 
   useEffect(() => {
     const fetchAboutData = async () => {
@@ -30,33 +33,41 @@ const About = () => {
   }, []);
 
   return (
-    <section className="py-16 bg-light">
-      <div className="container mx-auto px-4 md:px-6 lg:px-36">
-        <div className="max-w-3xl mx-auto">
-          <h1 className="text-4xl md:text-5xl font-bold text-gray-700 mb-8 text-center">
-            Về Chúng Tôi
-          </h1>
-          {loading ? (
-            <div className="text-center py-8">
-              <p className="text-gray-500">Đang tải dữ liệu...</p>
-            </div>
-          ) : error ? (
-            <div className="text-center py-8">
-              <p className="text-red-500">{error}</p>
-            </div>
-          ) : (
-            aboutData && aboutData.map(about =>
-              <div className="bg-white rounded-lg shadow-md p-8 mb-10">
-                <h2 className="text-2xl font-semibold text-gray-700 mb-4" dangerouslySetInnerHTML={{ __html: about.title }} />
-                <div className="text-gray-600 mb-6" dangerouslySetInnerHTML={{ __html: about.content }}>
-                </div>
-
+    <>
+      <SimpleSEOHead
+        title="Về Chúng Tôi"
+        description="Tìm hiểu về lịch sử, tầm nhìn và sứ mệnh của chúng tôi. Khám phá hành trình phát triển và các giá trị cốt lõi."
+        keywords="về chúng tôi, lịch sử công ty, tầm nhìn sứ mệnh, giá trị cốt lõi"
+        type="article"
+      />
+      <section className="py-16 bg-light">
+        <div className="container mx-auto px-4 md:px-6 lg:px-36">
+          <div className="max-w-3xl mx-auto">
+            <h1 className="text-4xl md:text-5xl font-bold text-gray-700 mb-8 text-center">
+              Về Chúng Tôi
+            </h1>
+            {loading ? (
+              <div className="text-center py-8">
+                <p className="text-gray-500">Đang tải dữ liệu...</p>
               </div>
-            )
-          )}
+            ) : error ? (
+              <div className="text-center py-8">
+                <p className="text-red-500">{error}</p>
+              </div>
+            ) : (
+              aboutData && aboutData.map(about =>
+                <div className="bg-white rounded-lg shadow-md p-8 mb-10">
+                  <h2 className="text-2xl font-semibold text-gray-700 mb-4" dangerouslySetInnerHTML={{ __html: about.title }} />
+                  <div className="text-gray-600 mb-6" dangerouslySetInnerHTML={{ __html: about.content }}>
+                  </div>
+
+                </div>
+              )
+            )}
+          </div>
         </div>
-      </div>
-    </section>
+      </section>
+    </>
   );
 };
 

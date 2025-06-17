@@ -9,6 +9,7 @@ import AboutSection from '@/components/AboutSection';
 import AchievementSection from '@/components/AchievementSection';
 import BlogSection from '@/components/BlogSection';
 import PageWrapper from '@/components/PageWrapper';
+import SimpleSEOHead from '@/seo/components/SimpleSEOHead';
 
 
 const HomePage = () => {
@@ -16,7 +17,9 @@ const HomePage = () => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const { currentLanguage } = useLanguage();
-  const { getSiteDescription } = useGlobalConfig();
+  const { getSiteDescription, getSiteName, getLogoUrl } = useGlobalConfig();
+
+
 
   useEffect(() => {
     const fetchHomePageContent = async () => {
@@ -94,20 +97,27 @@ const HomePage = () => {
   }
 
   return (
-    <PageWrapper
-      title="" // Trang chủ không cần title prefix
-      description={getSiteDescription()}
-      type="website"
-    >
-      <HeroSection homePageData={homePageData} />
-      <ClientsSection partner={homePageData?.partner} />
-      <FeaturesSection service={homePageData?.service} />
-      <AboutSection about={homePageData?.aboutus} />
-      <AchievementSection achievements={homePageData?.company_achievement} />
-      <BlogSection news={homePageData?.news} />
+    <>
+      <SimpleSEOHead
+        title=""
+        description={getSiteDescription()}
+        type="website"
+      />
+      <PageWrapper
+        title="" // Trang chủ không cần title prefix
+        description={getSiteDescription()}
+        type="website"
+      >
+        <HeroSection homePageData={homePageData} />
+        <ClientsSection partner={homePageData?.partner} />
+        <FeaturesSection service={homePageData?.service} />
+        <AboutSection about={homePageData?.aboutus} />
+        <AchievementSection achievements={homePageData?.company_achievement} />
+        <BlogSection news={homePageData?.news} />
 
-      {/* Add more sections as needed */}
-    </PageWrapper>
+        {/* Add more sections as needed */}
+      </PageWrapper>
+    </>
   );
 };
 

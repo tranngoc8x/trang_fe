@@ -4,7 +4,7 @@ import { Outlet } from 'react-router-dom';
 import { LanguageProvider } from './contexts/LanguageContext';
 import { GlobalConfigProvider, useGlobalConfig } from './contexts/GlobalConfigContext';
 import LoadingScreen, { ErrorScreen, MaintenanceScreen } from './components/LoadingScreen';
-import SEOHead, { StructuredData, useOrganizationStructuredData } from './components/SEOHead';
+import { StructuredData, useOrganizationStructuredData } from './components/SEOHead';
 
 /**
  * App Content Component
@@ -45,9 +45,6 @@ const AppContent = () => {
 
   return (
     <>
-      {/* SEO Head - manages document head */}
-      <SEOHead />
-
       {/* Organization Structured Data */}
       {organizationData && <StructuredData data={organizationData} />}
 
