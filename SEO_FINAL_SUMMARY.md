@@ -7,10 +7,15 @@
 src/seo/
 ├── components/
 │   ├── SimpleSEOHead.jsx      # ✅ SEO Head component chính
-│   ├── PerformanceMonitor.jsx # ✅ Theo dõi Web Vitals
-│   └── SEOProvider.jsx        # ✅ React Helmet Provider
+│   ├── PerformanceMonitor.jsx # ✅ Theo dõi Web Vitals (đã sửa lỗi import)
+│   └── SEOProvider.jsx        # ✅ React Helmet Provider (đã đơn giản hóa)
 └── index.js                   # ✅ Export các components
 ```
+
+### 🔧 Đã sửa lỗi import:
+- ❌ **Lỗi:** `Failed to resolve import "../services/analytics"`
+- ✅ **Đã sửa:** Gỡ bỏ tất cả tham chiếu đến analytics service
+- ✅ **Kết quả:** PerformanceMonitor hoạt động độc lập
 
 ### 🔧 Đã sửa lỗi Twitter Card:
 - **Trước:** Luôn dùng `summary_large_image`
