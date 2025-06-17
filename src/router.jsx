@@ -9,6 +9,7 @@ import Projects from './pages/Projects';
 import ProjectDetail from './pages/ProjectDetail';
 import Contact from './pages/Contact';
 import NotFound from './pages/NotFound';
+import SitemapPage from './pages/SitemapPage';
 
 // Tạo router với hỗ trợ đa ngôn ngữ
 const router = createBrowserRouter([
@@ -48,6 +49,10 @@ const router = createBrowserRouter([
       {
         path: 'lien-he',
         element: <Contact />
+      },
+      {
+        path: 'sitemap-manager',
+        element: <SitemapPage />
       }
     ]
   },

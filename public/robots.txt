@@ -1,6 +1,9 @@
 User-agent: *
 Allow: /
+
 Disallow: /admin/
 Disallow: /private/
+Disallow: /*.json
+Disallow: /sitemap-manager
 
-Sitemap: https://kachivina.vn/sitemap.xml
+Sitemap: http://kachivina.vn/sitemap.xml
