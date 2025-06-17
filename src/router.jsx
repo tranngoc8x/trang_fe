@@ -10,6 +10,7 @@ import ProjectDetail from './pages/ProjectDetail';
 import Contact from './pages/Contact';
 import NotFound from './pages/NotFound';
 import SitemapPage from './pages/SitemapPage';
+import GoogleAnalyticsDemo from './examples/GoogleAnalyticsDemo';
 
 // Tạo router với hỗ trợ đa ngôn ngữ
 const router = createBrowserRouter([
@@ -53,6 +54,10 @@ const router = createBrowserRouter([
       {
         path: 'sitemap-manager',
         element: <SitemapPage />
+      },
+      {
+        path: 'analytics-demo',
+        element: <GoogleAnalyticsDemo />
       }
     ]
   },

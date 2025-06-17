@@ -10,6 +10,7 @@ import AchievementSection from '@/components/AchievementSection';
 import BlogSection from '@/components/BlogSection';
 import PageWrapper from '@/components/PageWrapper';
 import SimpleSEOHead from '@/seo/components/SimpleSEOHead';
+import { useGoogleAnalytics } from '@/hooks/useGoogleAnalytics';
 
 
 const HomePage = () => {
@@ -18,6 +19,28 @@ const HomePage = () => {
   const [error, setError] = useState(null);
   const { currentLanguage } = useLanguage();
   const { getSiteDescription, getSiteName, getLogoUrl } = useGlobalConfig();
+  const { trackScrollDepth } = useGoogleAnalytics();
+
+  // Track scroll behavior
+  useEffect(() => {
+    const trackedThresholds = new Set();
+
+    const handleScroll = () => {
+      const scrollPercent = Math.round(
+        (window.scrollY / (document.documentElement.scrollHeight - window.innerHeight)) * 100
+      );
+
+      [25, 50, 75, 100].forEach(threshold => {
+        if (scrollPercent >= threshold && !trackedThresholds.has(threshold)) {
+          trackedThresholds.add(threshold);
+          trackScrollDepth(threshold);
+        }
+      });
+    };
+
+    window.addEventListener('scroll', handleScroll, { passive: true });
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, [trackScrollDepth]);
 
 
 

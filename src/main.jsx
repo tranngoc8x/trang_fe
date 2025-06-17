@@ -8,7 +8,12 @@ import SEOProvider from './seo/components/SEOProvider'
 
 createRoot(document.getElementById('root')).render(
   <StrictMode>
-    <SEOProvider enablePerformanceMonitoring={true}>
+    <SEOProvider
+      enablePerformanceMonitoring={true}
+      enableGoogleAnalytics={true}
+      googleAnalyticsId="G-G62WZE9GG8"
+      enableAnalyticsInDevelopment={false}
+    >
       <RouterProvider router={router} />
     </SEOProvider>
   </StrictMode>,
