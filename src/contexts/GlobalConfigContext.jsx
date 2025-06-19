@@ -28,9 +28,6 @@ export const GlobalConfigProvider = ({ children }) => {
     try {
       setLoading(true);
       setError(null);
-
-      console.log('🌐 GlobalConfigProvider: Loading global configuration...');
-
       const response = await globalService.getGlobalConfig({
         populate: {
           favicon: {
@@ -52,8 +49,6 @@ export const GlobalConfigProvider = ({ children }) => {
       setLastUpdated(new Date());
       setInitialized(true);
 
-      console.log('✅ GlobalConfigProvider: Global configuration loaded successfully');
-
       return response;
     } catch (err) {
       setError(err.message);
@@ -62,7 +57,6 @@ export const GlobalConfigProvider = ({ children }) => {
       // If we have cached data, use it
       const cacheInfo = globalService.getCacheInfo();
       if (cacheInfo.hasCache) {
-        console.log('⚠️ GlobalConfigProvider: Using cached data due to error');
         // Try to get cached data
         try {
           const cachedResponse = await globalService.getGlobalConfig();
@@ -213,14 +207,16 @@ export const GlobalConfigProvider = ({ children }) => {
      * Get OG image
      */
     getOgImage: () => {
-      return 'https://assets.kachivina.vn' + data?.defaultSeo?.shareImage?.url || '';
+      const shareImageUrl = data?.defaultSeo?.shareImage?.url;
+      return shareImageUrl ? `https://assets.kachivina.vn${shareImageUrl}` : '';
     },
 
     /**
      * Get favicon URL
      */
     getFaviconUrl: () => {
-      return 'https://assets.kachivina.vn' + data?.favicon?.url || '/favicon.jpg';
+      const faviconUrl = data?.favicon?.url;
+      return faviconUrl ? `https://assets.kachivina.vn${faviconUrl}` : '/favicon.jpg';
     },
 
     /**

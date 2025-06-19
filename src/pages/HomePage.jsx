@@ -8,7 +8,7 @@ import FeaturesSection from '@/components/FeaturesSection';
 import AboutSection from '@/components/AboutSection';
 import AchievementSection from '@/components/AchievementSection';
 import BlogSection from '@/components/BlogSection';
-import PageWrapper from '@/components/PageWrapper';
+
 import SimpleSEOHead from '@/seo/components/SimpleSEOHead';
 import { useGoogleAnalytics } from '@/hooks/useGoogleAnalytics';
 
@@ -18,7 +18,7 @@ const HomePage = () => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const { currentLanguage } = useLanguage();
-  const { getSiteDescription, getSiteName, getLogoUrl } = useGlobalConfig();
+  const { getSiteDescription } = useGlobalConfig();
   const { trackScrollDepth } = useGoogleAnalytics();
 
   // Track scroll behavior
@@ -95,7 +95,6 @@ const HomePage = () => {
 
         if (response && response.data) {
           setHomePageData(response.data);
-          console.log('Home page content:', response.data);
         }
       } catch (err) {
         console.error('Error fetching home page content:', err);
@@ -122,15 +121,10 @@ const HomePage = () => {
   return (
     <>
       <SimpleSEOHead
-        title=""
         description={getSiteDescription()}
         type="website"
       />
-      <PageWrapper
-        title="" // Trang chủ không cần title prefix
-        description={getSiteDescription()}
-        type="website"
-      >
+      <div className="page-wrapper">
         <HeroSection homePageData={homePageData} />
         <ClientsSection partner={homePageData?.partner} />
         <FeaturesSection service={homePageData?.service} />
@@ -139,7 +133,7 @@ const HomePage = () => {
         <BlogSection news={homePageData?.news} />
 
         {/* Add more sections as needed */}
-      </PageWrapper>
+      </div>
     </>
   );
 };

@@ -3,7 +3,6 @@
  * Cung cấp React Helmet context và Google Analytics
  */
 
-import { HelmetProvider } from 'react-helmet-async';
 import PerformanceMonitor from './PerformanceMonitor';
 import GoogleAnalytics from './GoogleAnalytics';
 
@@ -15,7 +14,7 @@ const SEOProvider = ({
   enableAnalyticsInDevelopment = false
 }) => {
   return (
-    <HelmetProvider>
+    <>
       {enableGoogleAnalytics && (
         <GoogleAnalytics
           trackingId={googleAnalyticsId}
@@ -28,7 +27,7 @@ const SEOProvider = ({
           enableConsoleLog={false}
         />
       )}
-    </HelmetProvider>
+    </>
   );
 };
 

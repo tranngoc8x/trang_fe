@@ -1,6 +1,6 @@
 /**
  * Simple SEO Head Component
- * Phiên bản đơn giản hóa để tránh lỗi
+ * Pure React Helmet approach - phương án đúng và tốt nhất
  */
 
 import { Helmet } from 'react-helmet-async';
@@ -28,7 +28,9 @@ const SimpleSEOHead = ({
 
   const location = useLocation();
 
-  if (!isReady()) return null;
+  if (!isReady()) {
+    return null;
+  }
 
   // Generate final values with fallbacks
   const finalTitle = title ? `${title} | ${getSiteName()}` : getMetaTitle();

@@ -162,13 +162,9 @@ export const globalService = {
 
         // Nếu cache còn hiệu lực, trả về cache
         if (cacheAge < CACHE_DURATION) {
-          console.log('🔄 Sử dụng global config từ cache');
           return globalConfigCache;
         }
       }
-
-      console.log('🌐 Đang tải global config từ API...');
-
 
       // Gọi API trực tiếp với axios và base URL admin
       const axiosResponse = await apiService.get(API_ENDPOINTS.GLOBAL, params);
@@ -178,7 +174,6 @@ export const globalService = {
       globalConfigCache = response;
       globalConfigCacheTime = Date.now();
 
-      console.log('✅ Đã tải global config thành công');
       return response;
 
     } catch (error) {
@@ -186,7 +181,6 @@ export const globalService = {
 
       // Nếu có cache cũ, trả về cache cũ khi gặp lỗi
       if (globalConfigCache) {
-        console.log('⚠️ Sử dụng global config từ cache cũ do lỗi API');
         return globalConfigCache;
       }
 

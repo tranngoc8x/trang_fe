@@ -1,12 +1,15 @@
 import React, { useEffect, useState } from 'react';
 import { productService, pageService } from '../services/appService';
 import { Link } from 'react-router-dom';
+import SimpleSEOHead from '@/seo/components/SimpleSEOHead';
+import { useGlobalConfig } from '../contexts/GlobalConfigContext';
 
 const Products = () => {
     const [products, setProducts] = useState([]);
     const [page, setPage] = useState(null);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
+    const { getMetaTitle, getMetaDescription, getMetaKeywords, getOgImage } = useGlobalConfig();
 
     useEffect(() => {
         const fetchProducts = async () => {
@@ -32,56 +35,73 @@ const Products = () => {
         fetchProducts();
     }, []);
 
+    // Lấy SEO từ page nếu có, nếu không lấy từ global
+    const metaTitle = page?.SEO?.metaTitle?.trim() || getMetaTitle('Sản phẩm & Dịch vụ');
+    const metaDescription = page?.SEO?.metaDescription?.trim() || getMetaDescription();
+    const metaKeywords = page?.SEO?.metaKeywords?.trim() || getMetaKeywords();
+    const metaImage = page?.SEO?.metaImage?.url
+        ? 'https://assets.kachivina.vn' + page.SEO.metaImage.url
+        : getOgImage();
+
     return (
-        <div className="container py-16">
-            <div className=" mx-auto">
-                <h1 className="text-4xl md:text-5xl font-bold text-gray-700 mb-8 text-center">
-                    Sản phẩm & Dịch vụ
-                </h1>
-                <div className="text-gray-600 mb-6 text-center">
-                    {loading && 'Đang tải danh sách sản phẩm...'}
-                    {error && <span className="text-red-500">{error}</span>}
-                    {!loading && !error && (
-                        products.length > 0 ? (
-                            <ul className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-                                {products.map((item) => {
-                                    const slug = item?.slug;
-                                    return (
-                                        <li key={item.id} className="p-4 bg-white rounded shadow flex flex-col items-center">
-                                            {/* Hiển thị ảnh sản phẩm */}
-                                            <Link to={slug ? `/san-pham-dich-vu/${slug}` : '#'} className="w-full flex flex-col items-center">
-                                                {item?.image || item?.image?.url ? (
-                                                    <img
-                                                        src={'https://assets.kachivina.vn' + item?.image?.url}
-                                                        alt={item?.title || 'Sản phẩm'}
-                                                        className="w-full h-40 object-cover rounded mb-4"
-                                                    />
-                                                ) : (
-                                                    <div className="w-full h-40 bg-gray-200 flex items-center justify-center rounded mb-4 text-gray-400">
-                                                        Không có ảnh
+        <>
+            <SimpleSEOHead
+                title={metaTitle}
+                description={metaDescription}
+                keywords={metaKeywords}
+                image={metaImage}
+                type="website"
+            />
+            <div className="container py-16">
+                <div className=" mx-auto">
+                    <h1 className="text-4xl md:text-5xl font-bold text-gray-700 mb-8 text-center">
+                        Sản phẩm & Dịch vụ
+                    </h1>
+                    <div className="text-gray-600 mb-6 text-center">
+                        {loading && 'Đang tải danh sách sản phẩm...'}
+                        {error && <span className="text-red-500">{error}</span>}
+                        {!loading && !error && (
+                            products.length > 0 ? (
+                                <ul className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+                                    {products.map((item) => {
+                                        const slug = item?.slug;
+                                        return (
+                                            <li key={item.id} className="p-4 bg-white rounded shadow flex flex-col items-center">
+                                                {/* Hiển thị ảnh sản phẩm */}
+                                                <Link to={slug ? `/san-pham-dich-vu/${slug}` : '#'} className="w-full flex flex-col items-center">
+                                                    {item?.image || item?.image?.url ? (
+                                                        <img
+                                                            src={'https://assets.kachivina.vn' + item?.image?.url}
+                                                            alt={item?.title || 'Sản phẩm'}
+                                                            className="w-full h-40 object-cover rounded mb-4"
+                                                        />
+                                                    ) : (
+                                                        <div className="w-full h-40 bg-gray-200 flex items-center justify-center rounded mb-4 text-gray-400">
+                                                            Không có ảnh
+                                                        </div>
+                                                    )}
+                                                    {/* Tiêu đề sản phẩm */}
+                                                    <div className="font-semibold text-lg text-gray-800 text-center">
+                                                        {item?.title || 'Tên sản phẩm'}
                                                     </div>
-                                                )}
-                                                {/* Tiêu đề sản phẩm */}
-                                                <div className="font-semibold text-lg text-gray-800 text-center">
-                                                    {item?.title || 'Tên sản phẩm'}
-                                                </div>
-                                            </Link>
-                                        </li>
-                                    );
-                                })}
-                            </ul>
-                        ) : (
-                            <span>Chưa có sản phẩm nào.</span>
-                        )
-                    )}
-                    {page && (
-                        <div className="text-gray-600 my-6 text-justify">
-                            <div dangerouslySetInnerHTML={{ __html: page.content }} />
-                        </div>
-                    )}
+                                                </Link>
+                                            </li>
+                                        );
+                                    })}
+                                </ul>
+                            ) : (
+                                <span>Chưa có sản phẩm nào.</span>
+                            )
+                        )}
+                        {page && (
+                            <div className="text-gray-600 my-6 text-justify">
+                                <div dangerouslySetInnerHTML={{ __html: page.content }} />
+                            </div>
+                        )}
+                    </div>
                 </div>
             </div>
-        </div>
+        </>
     );
 };
 

@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SEO Test Page</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #f5f5f5;
+        }
+        .container {
+            background: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        .button {
+            background: #007bff;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            margin: 5px;
+            font-size: 14px;
+        }
+        .button:hover {
+            background: #0056b3;
+        }
+        .console-output {
+            background: #1e1e1e;
+            color: #fff;
+            padding: 15px;
+            border-radius: 5px;
+            font-family: 'Courier New', monospace;
+            font-size: 12px;
+            margin-top: 20px;
+            max-height: 400px;
+            overflow-y: auto;
+        }
+        .instructions {
+            background: #e7f3ff;
+            padding: 15px;
+            border-radius: 5px;
+            margin-bottom: 20px;
+            border-left: 4px solid #007bff;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🔍 SEO Test Page</h1>
+        
+        <div class="instructions">
+            <h3>📋 Hướng dẫn kiểm tra SEO:</h3>
+            <ol>
+                <li>Mở <strong>Developer Tools</strong> (F12)</li>
+                <li>Chuyển sang tab <strong>Console</strong></li>
+                <li>Mở trang chính: <a href="http://localhost:5174" target="_blank">http://localhost:5174</a></li>
+                <li>Kiểm tra debug logs của SimpleSEOHead</li>
+                <li>Chạy các test bên dưới</li>
+            </ol>
+        </div>
+
+        <h3>🧪 SEO Tests:</h3>
+        <button class="button" onclick="runBasicTest()">Test Basic Meta Tags</button>
+        <button class="button" onclick="runOpenGraphTest()">Test Open Graph</button>
+        <button class="button" onclick="runTwitterTest()">Test Twitter Cards</button>
+        <button class="button" onclick="runAllTests()">Run All Tests</button>
+        <button class="button" onclick="checkDebugLogs()">Check Debug Logs</button>
+        <button class="button" onclick="clearConsole()">Clear Console</button>
+
+        <h3>📊 Quick SEO Check:</h3>
+        <button class="button" onclick="quickSEOCheck()">Quick SEO Status</button>
+        
+        <div id="console-output" class="console-output" style="display: none;">
+            <div id="console-content"></div>
+        </div>
+    </div>
+
+    <script>
+        // Load the test script
+        const script = document.createElement('script');
+        script.src = '/test-seo.js';
+        document.head.appendChild(script);
+
+        // Console capture
+        const originalLog = console.log;
+        const originalError = console.error;
+        const originalWarn = console.warn;
+        
+        function showConsole() {
+            document.getElementById('console-output').style.display = 'block';
+        }
+        
+        function addToConsole(message, type = 'log') {
+            const consoleContent = document.getElementById('console-content');
+            const div = document.createElement('div');
+            div.style.color = type === 'error' ? '#ff6b6b' : type === 'warn' ? '#ffd93d' : '#fff';
+            div.textContent = message;
+            consoleContent.appendChild(div);
+            consoleContent.scrollTop = consoleContent.scrollHeight;
+        }
+
+        // Test functions
+        function runBasicTest() {
+            showConsole();
+            addToConsole('🧪 Running Basic Meta Tags Test...');
+            if (window.testSEO) {
+                window.testSEO.testBasicMetaTags();
+            } else {
+                addToConsole('❌ testSEO not loaded yet', 'error');
+            }
+        }
+
+        function runOpenGraphTest() {
+            showConsole();
+            addToConsole('🧪 Running Open Graph Test...');
+            if (window.testSEO) {
+                window.testSEO.testOpenGraphTags();
+            } else {
+                addToConsole('❌ testSEO not loaded yet', 'error');
+            }
+        }
+
+        function runTwitterTest() {
+            showConsole();
+            addToConsole('🧪 Running Twitter Cards Test...');
+            if (window.testSEO) {
+                window.testSEO.testTwitterCardTags();
+            } else {
+                addToConsole('❌ testSEO not loaded yet', 'error');
+            }
+        }
+
+        function runAllTests() {
+            showConsole();
+            addToConsole('🚀 Running All SEO Tests...');
+            if (window.testSEO) {
+                window.testSEO.runAllTests();
+            } else {
+                addToConsole('❌ testSEO not loaded yet', 'error');
+            }
+        }
+
+        function checkDebugLogs() {
+            showConsole();
+            addToConsole('🔍 Checking SimpleSEOHead Debug Logs...');
+            addToConsole('📝 Open main app and check console for:');
+            addToConsole('   - 🔍 SimpleSEOHead Debug: (props)');
+            addToConsole('   - 🎯 SimpleSEOHead Final Values: (computed)');
+            addToConsole('   - 🚀 SimpleSEOHead: Rendering Helmet');
+        }
+
+        function quickSEOCheck() {
+            showConsole();
+            addToConsole('⚡ Quick SEO Status Check...');
+            
+            // Open main app in new tab
+            window.open('http://localhost:5174', '_blank');
+            
+            addToConsole('✅ Main app opened in new tab');
+            addToConsole('📋 Check the new tab console for SimpleSEOHead debug logs');
+            addToConsole('🔍 Then inspect Elements tab for meta tags in <head>');
+        }
+
+        function clearConsole() {
+            document.getElementById('console-content').innerHTML = '';
+            console.clear();
+        }
+
+        // Auto-load message
+        setTimeout(() => {
+            addToConsole('🔧 SEO Test Page loaded successfully!');
+            addToConsole('📱 Open http://localhost:5174 to test the main app');
+        }, 500);
+    </script>
+</body>
+</html>
