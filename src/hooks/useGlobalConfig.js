@@ -39,10 +39,10 @@ export const useGlobalConfig = (options = {}) => {
       const shouldForceRefresh = forceRefresh || customForceRefresh;
 
       const response = await globalService.getGlobalConfig(mergedParams, shouldForceRefresh);
-      
+
       setData(response.data);
       setLastUpdated(new Date());
-      
+
       return response.data;
     } catch (err) {
       setError(err.message);
@@ -201,6 +201,9 @@ export const useGlobalConfig = (options = {}) => {
      */
     getAnalyticsConfig: () => {
       return data?.analytics || {};
+    },
+    getMapUrl: () => {
+      return data?.map || '';
     }
   };
 
@@ -241,14 +244,14 @@ export const useGlobalConfigData = (params = {}) => {
  */
 export const useGlobalConfigValue = (path, defaultValue = null) => {
   const { data } = useGlobalConfig();
-  
+
   if (!data || !path) return defaultValue;
-  
+
   // Hỗ trợ nested path như 'contact.phone'
   const value = path.split('.').reduce((obj, key) => {
     return obj && obj[key] !== undefined ? obj[key] : undefined;
   }, data);
-  
+
   return value !== undefined ? value : defaultValue;
 };
 

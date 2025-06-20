@@ -1,9 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import { pageService } from '../services/appService';
 import SimpleSEOHead from '@/seo/components/SimpleSEOHead';
+import { useGlobalConfig } from '../contexts/GlobalConfigContext';
 
 const Contact = () => {
     const [page, setPage] = useState(null);
+    const { getMapUrl } = useGlobalConfig();
     useEffect(() => {
         const fetchPage = async () => {
             const response = await pageService.getPage('contact-page');
@@ -13,13 +15,21 @@ const Contact = () => {
         };
         fetchPage();
     }, []);
+    // Lấy SEO từ page nếu có, nếu không lấy từ global
+    const metaTitle = page?.SEO?.metaTitle?.trim();
+    const metaDescription = page?.SEO?.metaDescription?.trim() || '';
+    const metaKeywords = page?.SEO?.metaKeywords?.trim() || '';
+    const metaImage = page?.SEO?.metaImage?.url
+        ? 'https://assets.kachivina.vn' + page.SEO.metaImage.url
+        : '';
 
     return (
         <>
             <SimpleSEOHead
-                title="Liên Hệ"
-                description="Liên hệ với chúng tôi để được tư vấn và hỗ trợ. Địa chỉ, số điện thoại và bản đồ chỉ đường."
-                keywords="liên hệ, tư vấn, hỗ trợ, địa chỉ, điện thoại"
+                title={metaTitle}
+                description={metaDescription}
+                keywords={metaKeywords}
+                image={metaImage}
                 type="website"
             />
             <section className="py-16 bg-light">
@@ -37,7 +47,7 @@ const Contact = () => {
                             <div className="w-full h-96 rounded overflow-hidden shadow">
                                 <iframe
                                     title="Google Maps"
-                                    src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3919.5022345678!2d106.700423315334!3d10.7768899923221!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x31752f1b1b1b1b1b%3A0x1b1b1b1b1b1b1b1b!2zMTIzIMSQxrDhu51uZyBBQkMsIFF14bqtbiAxLCBUUC5IQ00!5e0!3m2!1svi!2s!4v1710000000000!5m2!1svi!2s"
+                                    src={getMapUrl()}
                                     width="100%"
                                     height="100%"
                                     style={{ border: 0 }}
@@ -49,7 +59,7 @@ const Contact = () => {
                         </div>
                     </div>
                 </div>
-            </section>
+            </section >
         </>
     );
 };

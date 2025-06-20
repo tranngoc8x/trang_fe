@@ -249,6 +249,10 @@ export const GlobalConfigProvider = ({ children }) => {
       return `${pageTitle} | ${siteName}`;
     },
 
+    getMapUrl: () => {
+      return data?.map || '';
+    },
+
     /**
      * Check if global config is ready
      */
