@@ -8,7 +8,7 @@ const AboutSection = ({ about }) => {
       {/* Feature Highlight Section */}
       <div className="feature-highlight">
         <div className="feature-highlight-image">
-          <img src={about?.media.url ? 'https://assets.kachivina.vn' + about.media.url : ''} alt="Feature illustration" />
+          <img src={about?.media?.url ? 'https://assets.kachivina.vn' + about.media.url : ''} alt="Feature illustration" />
         </div>
 
         <div className="feature-highlight-content">
