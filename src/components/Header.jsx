@@ -53,7 +53,7 @@ const Header = () => {
 
         {/* Desktop Navigation */}
         <nav>
-          <ul className="flex space-x-4 items-center">
+          <ul className="flex items-center">
             {menuItems && menuItems.map((item) => (
               <li
                 key={item.id}
