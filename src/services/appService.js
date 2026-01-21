@@ -1,13 +1,12 @@
-import apiService from './api';
-import { API_ENDPOINTS } from '@/constants';
-import { addLanguageToParams, getLanguageMenuId } from '../utils/apiUtils';
-
+import apiService from "./api";
+import { API_ENDPOINTS } from "@/constants";
+import { addLanguageToParams, getLanguageMenuId } from "../utils/apiUtils";
 
 // Ví dụ về một service để gọi API liên quan đến users
 export const userService = {
   // Lấy danh sách users
   getUsers: (params) => {
-    return apiService.get('/users', params);
+    return apiService.get("/users", params);
   },
 
   // Lấy thông tin chi tiết của một user
@@ -17,7 +16,7 @@ export const userService = {
 
   // Tạo user mới
   createUser: (userData) => {
-    return apiService.post('/users', userData);
+    return apiService.post("/users", userData);
   },
 
   // Cập nhật thông tin user
@@ -28,7 +27,7 @@ export const userService = {
   // Xóa user
   deleteUser: (id) => {
     return apiService.delete(`/users/${id}`);
-  }
+  },
 };
 
 // Ví dụ về một service khác (ví dụ: products)
@@ -45,21 +44,38 @@ export const productService = {
 
   // Các phương thức khác...
 };
+// Ví dụ về một service khác (ví dụ: products)
+export const serviceService = {
+  // Lấy danh sách products
+  getServices: (params) => {
+    return apiService.get(API_ENDPOINTS.SERVICES, params);
+  },
+
+  // Lấy thông tin chi tiết của một product
+  getServiceById: (id, params) => {
+    return apiService.get(`${API_ENDPOINTS.SERVICE_DETAIL}/${id}`, params);
+  },
+
+  // Các phương thức khác...
+};
 
 // Service để gọi API tree-menus
 export const menuService = {
   // Lấy tất cả menu từ API tree-menus
-  getTreeMenu: (language = 'vi') => {
+  getTreeMenu: (language = "vi") => {
     const params = addLanguageToParams({}, language);
     return apiService.get(API_ENDPOINTS.TREE_MENU, params);
   },
 
   // Lấy menu theo ID từ API tree-menus
-  getTreeMenuById: (id, language = 'vi') => {
+  getTreeMenuById: (id, language = "vi") => {
     const languageMenuId = getLanguageMenuId(id, language);
     const params = addLanguageToParams({}, language);
-    return apiService.get(`${API_ENDPOINTS.TREE_MENU}/${languageMenuId}`, params);
-  }
+    return apiService.get(
+      `${API_ENDPOINTS.TREE_MENU}/${languageMenuId}`,
+      params,
+    );
+  },
 };
 
 // Service để gọi API khách hàng
@@ -72,7 +88,7 @@ export const clientService = {
   // Lấy thông tin chi tiết của một khách hàng
   getClientById: (id) => {
     return apiService.get(`${API_ENDPOINTS.CLIENTS}/${id}`);
-  }
+  },
 };
 
 // Service để gọi API slides
@@ -85,16 +101,16 @@ export const slideService = {
   // Lấy thông tin chi tiết của một slide
   getSlideById: (id) => {
     return apiService.get(`${API_ENDPOINTS.SLIDES}/${id}`);
-  }
+  },
 };
 
 // Service để gọi API home page content
 export const homePageService = {
   // Lấy nội dung trang chủ
-  getHomePageContent: (params, language = 'vi') => {
+  getHomePageContent: (params, language = "vi") => {
     const languageParams = addLanguageToParams(params, language);
     return apiService.get(API_ENDPOINTS.HOME_PAGE_CONTENT, languageParams);
-  }
+  },
 };
 
 // Service để gọi API about-uses
@@ -107,7 +123,7 @@ export const aboutService = {
   // Lấy thông tin chi tiết của một about-use
   getAboutUseById: (id, params) => {
     return apiService.get(`${API_ENDPOINTS.ABOUT_USES}/${id}`, params);
-  }
+  },
 };
 
 // Service để gọi API pricing (bao-gia-and-tu-vans)
@@ -118,7 +134,7 @@ export const pricingService = {
   },
   savePricing: (data) => {
     return apiService.post(API_ENDPOINTS.PRICING, { data: data });
-  }
+  },
 };
 
 // Service để gọi API projects (articles)
@@ -126,15 +142,15 @@ export const projectsService = {
   // Lấy dữ liệu dự án (bài viết)
   getProjects: (params) => {
     return apiService.get(API_ENDPOINTS.PROJECTS, params);
-  }
+  },
 };
 export const pageService = {
   getPage: (slug) => {
     return apiService.get(`${API_ENDPOINTS.PAGE}`, {
       filters: { slug },
-      populate: "*"
+      populate: "*",
     });
-  }
+  },
 };
 
 // Cache cho global configuration
@@ -175,9 +191,8 @@ export const globalService = {
       globalConfigCacheTime = Date.now();
 
       return response;
-
     } catch (error) {
-      console.error('❌ Lỗi khi tải global config:', error);
+      console.error("❌ Lỗi khi tải global config:", error);
 
       // Nếu có cache cũ, trả về cache cũ khi gặp lỗi
       if (globalConfigCache) {
@@ -195,7 +210,7 @@ export const globalService = {
   clearCache: () => {
     globalConfigCache = null;
     globalConfigCacheTime = null;
-    console.log('🗑️ Đã xóa cache global config');
+    console.log("🗑️ Đã xóa cache global config");
   },
 
   /**
@@ -206,10 +221,14 @@ export const globalService = {
     return {
       hasCache: !!globalConfigCache,
       cacheTime: globalConfigCacheTime,
-      cacheAge: globalConfigCacheTime ? Date.now() - globalConfigCacheTime : null,
-      isExpired: globalConfigCacheTime ? (Date.now() - globalConfigCacheTime) > CACHE_DURATION : true
+      cacheAge: globalConfigCacheTime
+        ? Date.now() - globalConfigCacheTime
+        : null,
+      isExpired: globalConfigCacheTime
+        ? Date.now() - globalConfigCacheTime > CACHE_DURATION
+        : true,
     };
-  }
+  },
 };
 
 export default {
@@ -223,5 +242,5 @@ export default {
   pricingService,
   projectsService,
   pageService,
-  globalService
+  globalService,
 };

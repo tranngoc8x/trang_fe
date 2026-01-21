@@ -252,6 +252,9 @@ export const GlobalConfigProvider = ({ children }) => {
     getMapUrl: () => {
       return data?.map || '';
     },
+    getFooterContent: () => {
+      return data?.footer_content || '';
+    },
 
     /**
      * Check if global config is ready

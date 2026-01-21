@@ -8,6 +8,7 @@ export const ROUTE_MAPPING = {
     '/': '/',
     '/gioi-thieu': '/gioi-thieu',
     '/san-pham-dich-vu': '/san-pham-dich-vu',
+    '/san-pham': '/san-pham',
     '/bao-gia-tu-van': '/bao-gia-tu-van',
     '/du-an-tieu-bieu': '/du-an-tieu-bieu',
     '/lien-he': '/lien-he'
@@ -15,7 +16,8 @@ export const ROUTE_MAPPING = {
   en: {
     '/': '/en',
     '/gioi-thieu': '/en/about',
-    '/san-pham-dich-vu': '/en/products',
+    '/san-pham-dich-vu': '/en/services',
+    '/san-pham': '/en/products',
     '/bao-gia-tu-van': '/en/pricing',
     '/du-an-tieu-bieu': '/en/projects',
     '/lien-he': '/en/contact'
@@ -27,15 +29,17 @@ export const REVERSE_ROUTE_MAPPING = {
   // Vietnamese to English
   '/': '/en',
   '/gioi-thieu': '/en/about',
-  '/san-pham-dich-vu': '/en/products',
+  '/san-pham-dich-vu': '/en/services',
+  '/san-pham': '/en/products',
   '/bao-gia-tu-van': '/en/pricing',
   '/du-an-tieu-bieu': '/en/projects',
   '/lien-he': '/en/contact',
-  
+
   // English to Vietnamese
   '/en': '/',
   '/en/about': '/gioi-thieu',
-  '/en/products': '/san-pham-dich-vu',
+  '/en/products': '/san-pham',
+  '/en/services': '/san-pham-dich-vu',
   '/en/pricing': '/bao-gia-tu-van',
   '/en/projects': '/du-an-tieu-bieu',
   '/en/contact': '/lien-he'
@@ -54,7 +58,7 @@ export const LanguageProvider = ({ children }) => {
     const path = location.pathname;
     const isEnglish = path.startsWith('/en');
     const detectedLang = isEnglish ? 'en' : 'vi';
-    
+
     if (detectedLang !== currentLanguage) {
       setCurrentLanguage(detectedLang);
       i18n.changeLanguage(detectedLang);
@@ -64,10 +68,10 @@ export const LanguageProvider = ({ children }) => {
   // Switch language function
   const switchLanguage = (newLang) => {
     if (newLang === currentLanguage) return;
-    
+
     const currentPath = location.pathname;
     let newPath;
-    
+
     // Find the corresponding path in the new language
     if (newLang === 'en') {
       // Switching to English
@@ -76,7 +80,7 @@ export const LanguageProvider = ({ children }) => {
       // Switching to Vietnamese
       newPath = REVERSE_ROUTE_MAPPING[currentPath] || '/';
     }
-    
+
     // Navigate to new path
     navigate(newPath);
     setCurrentLanguage(newLang);

@@ -4,6 +4,8 @@ import HomePage from './pages/HomePage';
 import About from './pages/About';
 import Products from './pages/Products';
 import ProductDetail from './pages/ProductDetail';
+import Services from './pages/Services';
+import ServiceDetail from './pages/ServiceDetail';
 import Pricing from './pages/Pricing';
 import Projects from './pages/Projects';
 import ProjectDetail from './pages/ProjectDetail';
@@ -29,10 +31,18 @@ const router = createBrowserRouter([
       },
       {
         path: 'san-pham-dich-vu',
-        element: <Products />
+        element: <Services />
       },
       {
         path: 'san-pham-dich-vu/:slug',
+        element: <ServiceDetail />
+      },
+      {
+        path: 'san-pham',
+        element: <Products />
+      },
+      {
+        path: 'san-pham/:slug',
         element: <ProductDetail />
       },
       {

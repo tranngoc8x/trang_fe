@@ -1,24 +1,24 @@
 import React, { useEffect, useState } from 'react';
-import { productService, pageService } from '../services/appService';
+import { serviceService, pageService } from '../services/appService';
 import { Link } from 'react-router-dom';
 import SimpleSEOHead from '@/seo/components/SimpleSEOHead';
 import { useGlobalConfig } from '../contexts/GlobalConfigContext';
 
-const Products = () => {
-    const [products, setProducts] = useState([]);
+const Services = () => {
+    const [services, setServices] = useState([]);
     const [page, setPage] = useState(null);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
     const { getMetaTitle, getMetaDescription, getMetaKeywords, getOgImage } = useGlobalConfig();
 
     useEffect(() => {
-        const fetchProducts = async () => {
+        const fetchServices = async () => {
             try {
-                const response = await productService.getProducts(
+                const response = await serviceService.getServices(
                     { populate: '*' }
                 );
                 // Nếu response có dạng { data: [...] } (theo chuẩn Strapi)
-                setProducts(response.data || []);
+                setServices(response.data || []);
             } catch {
                 setError('Không thể tải danh sách sản phẩm.');
             } finally {
@@ -26,13 +26,13 @@ const Products = () => {
             }
         };
         const fetchPage = async () => {
-            const response = await pageService.getPage('product-page');
+            const response = await pageService.getPage('service-page');
             if (response.data && response.data.length > 0) {
                 setPage(response.data[0]);
             }
         };
         fetchPage();
-        fetchProducts();
+        fetchServices();
     }, []);
 
     // Lấy SEO từ page nếu có, nếu không lấy từ global
@@ -61,14 +61,14 @@ const Products = () => {
                         {loading && 'Đang tải danh sách sản phẩm...'}
                         {error && <span className="text-red-500">{error}</span>}
                         {!loading && !error && (
-                            products.length > 0 ? (
+                            services.length > 0 ? (
                                 <ul className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-                                    {products.map((item) => {
+                                    {services.map((item) => {
                                         const slug = item?.slug;
                                         return (
                                             <li key={item.id} className="p-4 bg-white rounded shadow flex flex-col items-center">
                                                 {/* Hiển thị ảnh sản phẩm */}
-                                                <Link to={slug ? `/san-pham/${slug}` : '#'} className="w-full flex flex-col items-center">
+                                                <Link to={slug ? `/san-pham-dich-vu/${slug}` : '#'} className="w-full flex flex-col items-center">
                                                     {item?.image || item?.image?.url ? (
                                                         <img
                                                             src={'https://assets.kachivina.vn' + item?.image?.url}
@@ -90,7 +90,7 @@ const Products = () => {
                                     })}
                                 </ul>
                             ) : (
-                                <span>Chưa có sản phẩm nào.</span>
+                                <span>Chưa có dịch vụ nào.</span>
                             )
                         )}
                         {page && (
@@ -105,4 +105,4 @@ const Products = () => {
     );
 };
 
-export default Products; 
+export default Services; 

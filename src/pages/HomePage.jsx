@@ -4,10 +4,10 @@ import { useGlobalConfig } from '../contexts/GlobalConfigContext';
 import { homePageService } from '@services/appService';
 import HeroSection from '@/components/HeroSection';
 import ClientsSection from '@/components/ClientsSection';
-import FeaturesSection from '@/components/FeaturesSection';
+import FeatureServiceSection from '@/components/FeatureServiceSection';
 import AboutSection from '@/components/AboutSection';
 import AchievementSection from '@/components/AchievementSection';
-import BlogSection from '@/components/BlogSection';
+import FeatureProductSection from '@/components/FeatureProductSection';
 
 import SimpleSEOHead from '@/seo/components/SimpleSEOHead';
 import { useGoogleAnalytics } from '@/hooks/useGoogleAnalytics';
@@ -127,10 +127,11 @@ const HomePage = () => {
       <div className="page-wrapper">
         <HeroSection homePageData={homePageData} />
         <ClientsSection partner={homePageData?.partner} />
-        <FeaturesSection service={homePageData?.service} />
+        <FeatureProductSection news={homePageData?.news} />
+
         <AboutSection about={homePageData?.aboutus} />
         <AchievementSection achievements={homePageData?.company_achievement} />
-        <BlogSection news={homePageData?.news} />
+        <FeatureServiceSection service={homePageData?.service} />
 
         {/* Add more sections as needed */}
       </div>

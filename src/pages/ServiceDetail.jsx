@@ -1,46 +1,74 @@
 import React, { useEffect, useState } from 'react';
-import { productService, pageService } from '../services/appService';
-import { Link } from 'react-router-dom';
+import { useParams, Link } from 'react-router-dom';
+import { serviceService, productService } from '../services/appService';
 import SimpleSEOHead from '@/seo/components/SimpleSEOHead';
 import { useGlobalConfig } from '../contexts/GlobalConfigContext';
-
-const Products = () => {
-    const [products, setProducts] = useState([]);
-    const [page, setPage] = useState(null);
+const ServiceDetail = () => {
+    const { slug } = useParams();
+    const [service, setService] = useState(null);
     const [loading, setLoading] = useState(true);
+    const [products, setProducts] = useState([]);
     const [error, setError] = useState(null);
     const { getMetaTitle, getMetaDescription, getMetaKeywords, getOgImage } = useGlobalConfig();
-
     useEffect(() => {
-        const fetchProducts = async () => {
+        const fetchService = async () => {
             try {
-                const response = await productService.getProducts(
-                    { populate: '*' }
-                );
-                // Nếu response có dạng { data: [...] } (theo chuẩn Strapi)
-                setProducts(response.data || []);
+                const response = await serviceService.getServices({
+                    filters: { slug },
+                    populate: "*"
+                });
+                if (response.data && response.data.length > 0) {
+                    setService(response.data[0]);
+                } else {
+                    setError('Không tìm thấy dịch vụ.');
+                }
             } catch {
-                setError('Không thể tải danh sách sản phẩm.');
+                setError('Lỗi khi tải chi tiết dịch vụ.');
             } finally {
                 setLoading(false);
             }
         };
-        const fetchPage = async () => {
-            const response = await pageService.getPage('product-page');
-            if (response.data && response.data.length > 0) {
-                setPage(response.data[0]);
-            }
-        };
-        fetchPage();
-        fetchProducts();
-    }, []);
+        fetchService();
+    }, [slug]);
+    useEffect(() => {
+        if (service) {
+            const fetchProducts = async () => {
+                try {
+                    const response = await productService.getProducts(
+                        {
+                            populate: '*',
 
-    // Lấy SEO từ page nếu có, nếu không lấy từ global
-    const metaTitle = page?.SEO?.metaTitle?.trim() || getMetaTitle('Sản phẩm & Dịch vụ');
-    const metaDescription = page?.SEO?.metaDescription?.trim() || getMetaDescription();
-    const metaKeywords = page?.SEO?.metaKeywords?.trim() || getMetaKeywords();
-    const metaImage = page?.SEO?.metaImage?.url
-        ? 'https://assets.kachivina.vn' + page.SEO.metaImage.url
+                            filters: {
+                                service: service.id
+                            }
+                        }
+                    );
+                    // Nếu response có dạng { data: [...] } (theo chuẩn Strapi)
+                    setProducts(response.data || []);
+                } catch {
+                    setError('Không thể tải danh sách sản phẩm.');
+                } finally {
+                    setLoading(false);
+                }
+            };
+            fetchProducts();
+        }
+
+    }, [service])
+
+    if (loading) return <div className="text-center py-10">Đang tải...</div>;
+    if (error) return <div className="text-center text-red-500 py-10">{error}</div>;
+    if (!service) return null;
+
+    const imageUrl = service?.cover?.url ? 'https://assets.kachivina.vn' + service.cover.url : null;
+    const title = service?.title || 'Tên dự án';
+    const content = service?.content || "";
+
+    const metaTitle = service?.SEO?.metaTitle?.trim() || getMetaTitle('Dự án');
+    const metaDescription = service?.SEO?.metaDescription?.trim() || getMetaDescription();
+    const metaKeywords = service?.SEO?.metaKeywords?.trim() || getMetaKeywords();
+    const metaImage = service?.SEO?.metaImage?.url
+        ? 'https://assets.kachivina.vn' + service.SEO.metaImage.url
         : getOgImage();
 
     return (
@@ -52,14 +80,17 @@ const Products = () => {
                 image={metaImage}
                 type="website"
             />
-            <div className="container py-16">
-                <div className=" mx-auto">
-                    <h1 className="text-4xl md:text-5xl font-bold text-gray-700 mb-8 text-center">
-                        Sản phẩm & Dịch vụ
-                    </h1>
-                    <div className="text-gray-600 mb-6 text-center">
-                        {loading && 'Đang tải danh sách sản phẩm...'}
-                        {error && <span className="text-red-500">{error}</span>}
+            <section className="py-16 bg-light">
+                <div className="container mx-auto px-4 md:px-6 lg:px-36">
+                    <div className=" mx-auto bg-white rounded shadow p-8">
+                        {imageUrl && (
+                            <img src={imageUrl} alt={title} className="w-full h-64 object-cover rounded mb-6" />
+                        )}
+                        <h1 className="text-3xl font-bold text-gray-800 mb-4">{title}</h1>
+                        {content && (
+                            <div className="text-gray-700 mb-4" dangerouslySetInnerHTML={{ __html: content }} />
+                        )}
+
                         {!loading && !error && (
                             products.length > 0 ? (
                                 <ul className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
@@ -93,16 +124,11 @@ const Products = () => {
                                 <span>Chưa có sản phẩm nào.</span>
                             )
                         )}
-                        {page && (
-                            <div className="text-gray-600 my-6 text-justify">
-                                <div dangerouslySetInnerHTML={{ __html: page.content }} />
-                            </div>
-                        )}
                     </div>
                 </div>
-            </div>
+            </section>
         </>
     );
 };
 
-export default Products; 
+export default ServiceDetail; 

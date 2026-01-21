@@ -4,7 +4,8 @@ const Footer = () => {
   const {
     getSiteName,
     getLogoUrl2,
-    isReady
+    isReady,
+    getFooterContent
   } = useGlobalConfig();
 
   return (
@@ -38,7 +39,7 @@ const Footer = () => {
               </a>
             </div>
 
-            <p className="footer-copyright">© 2023 Nexcent ltd. All rights reserved.</p>
+            <p className="footer-copyright">{isReady() ? getFooterContent() : '© 2025 Kachivina.vn. All rights reserved.'}</p>
           </div>
 
           {/* Company Links */}
