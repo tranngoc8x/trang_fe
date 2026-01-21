@@ -1,12 +1,47 @@
 import { useGlobalConfig } from '@/contexts/GlobalConfigContext';
+import { useEffect, useState } from 'react';
+import { menuService } from '@services/appService';
+import { FOOTER_MENU_1, FOOTER_MENU_2 } from '@/constants';
+import { useLanguage } from '@/contexts/LanguageContext';
+
 
 const Footer = () => {
+  const [menu1Items, setMenu1Items] = useState([]);
+  const [menu2Items, setMenu2Items] = useState([]);
   const {
     getSiteName,
     getLogoUrl2,
     isReady,
+    getMapUrl,
     getFooterContent
   } = useGlobalConfig();
+
+  const { currentLanguage } = useLanguage();
+  useEffect(() => {
+    const fetchMenuData = async () => {
+      try {
+        const { data } = await menuService.getTreeMenuById(FOOTER_MENU_1, currentLanguage);
+        if (data && data.items) {
+          setMenu1Items(data);
+        }
+      } catch (err) {
+        console.error('Error fetching menu:', err);
+      }
+
+      try {
+        const { data } = await menuService.getTreeMenuById(FOOTER_MENU_2, currentLanguage);
+        if (data && data.items) {
+          setMenu2Items(data);
+        }
+      } catch (err) {
+        console.error('Error fetching menu:', err);
+      }
+    };
+
+    fetchMenuData();
+  }, [currentLanguage]);
+
+
 
   return (
     <footer>
@@ -44,46 +79,27 @@ const Footer = () => {
 
           {/* Company Links */}
           <div className="footer-links">
-            <h3>Company</h3>
+            <h3>{menu1Items?.title || ''}</h3>
             <ul>
-              <li><a href="/about">About us</a></li>
-              <li><a href="/blog">Blog</a></li>
-              <li><a href="/contact">Contact us</a></li>
-              <li><a href="/pricing">Pricing</a></li>
-              <li><a href="/testimonials">Testimonials</a></li>
+              {menu1Items?.items?.map((item) => (
+                <li key={item.id}><a href={item.url}>{item.title}</a></li>
+              ))}
             </ul>
           </div>
 
           {/* Support Links */}
           <div className="footer-links">
-            <h3>Support</h3>
+            <h3>{menu2Items?.title || ''}</h3>
             <ul>
-              <li><a href="/help-center">Help center</a></li>
-              <li><a href="/terms">Terms of service</a></li>
-              <li><a href="/legal">Legal</a></li>
-              <li><a href="/privacy">Privacy policy</a></li>
-              <li><a href="/status">Status</a></li>
+              {menu2Items?.items?.map((item) => (
+                <li key={item.id}><a href={item.url}>{item.title}</a></li>
+              ))}
             </ul>
           </div>
 
           {/* Newsletter */}
           <div className="footer-links">
-            <h3>Stay up to date</h3>
-            <div className="newsletter-form">
-              <input
-                type="email"
-                placeholder="Your email address"
-                className="newsletter-input"
-              />
-              <button
-                className="newsletter-button"
-                aria-label="Subscribe"
-              >
-                <svg style={{ width: '1.5rem', height: '1.5rem' }} viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                  <path d="M2.01 21L23 12L2.01 3L2 10L17 12L2 14L2.01 21Z" fill="currentColor" />
-                </svg>
-              </button>
-            </div>
+            <iframe src={isReady() ? getMapUrl() : ""} width="100%" height="350" style={{ border: '0' }} allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
           </div>
         </div>
       </div>
