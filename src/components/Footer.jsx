@@ -53,7 +53,7 @@ const Footer = () => {
               <div style={{ width: '2rem', height: '2rem' }}>
                 <img src={isReady() ? getLogoUrl2() : "/favicon.jpg"} alt={isReady() ? getSiteName() : "Kachivina"} />
               </div>
-              <span>{isReady() ? getSiteName() : "Kachivina"}</span>
+              {isReady() ? <div dangerouslySetInnerHTML={{ __html: getSiteName() }}></div> : <span>Kachivina</span>}
             </a>
 
             <div className="social-icons">
@@ -99,7 +99,7 @@ const Footer = () => {
 
           {/* Newsletter */}
           <div className="footer-links">
-            <iframe src={isReady() ? getMapUrl() : ""} width="100%" height="350" style={{ border: '0' }} allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+            <iframe src={isReady() ? getMapUrl() : ""} width="100%" height="300" style={{ border: '0' }} allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
           </div>
         </div>
       </div>

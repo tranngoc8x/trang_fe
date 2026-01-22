@@ -4,8 +4,8 @@
 
 // Menu IDs
 export const MAIN_MENU_ID = "i6kb98r2hnc69kxvcaz8gxc4";
-export const FOOTER_MENU_1 = "iiicdvnc1gff4cajqjbmrgyt";
-export const FOOTER_MENU_2 = "wvn13s7ipjq1prph7vu31qg6";
+export const FOOTER_MENU_1 = "wyqtsrqa3xcjm2qz1d18p2dl";
+export const FOOTER_MENU_2 = "p1be4h0honwi52mqkyiu9p8c";
 
 // API Endpoints
 export const API_ENDPOINTS = {
