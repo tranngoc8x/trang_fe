@@ -73,8 +73,9 @@ const Footer = () => {
                 </svg>
               </a>
             </div>
-
-            <p className="footer-copyright">{isReady() ? getFooterContent() : '© 2025 Kachivina.vn. All rights reserved.'}</p>
+            {isReady() ?
+              <p className="footer-copyright" dangerouslySetInnerHTML={{ __html: getFooterContent() }}></p>
+              : <p className="footer-copyright">© 2025 Kachivina.vn. All rights reserved.</p>}
           </div>
 
           {/* Company Links */}
