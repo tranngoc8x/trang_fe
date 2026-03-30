@@ -19,6 +19,10 @@ const ProductDetail = () => {
                             populate: true,
                             fields: ['url']
                         },
+                        'avatar': {
+                            populate: true,
+                            fields: ['url']
+                        },
                         'dynamic_content': {
                             populate: "*"
                         },
@@ -45,7 +49,7 @@ const ProductDetail = () => {
     if (error) return <div className="text-center text-red-500 py-10">{error}</div>;
     if (!product) return null;
 
-    const imageUrl = product?.image?.url ? 'https://assets.kachivina.vn' + product.image.url : null;
+    const imageUrl = product?.avatar?.url ? 'https://assets.kachivina.vn' + product.avatar.url : null;
     const title = product?.title || 'Tên sản phẩm';
     const description = product?.description || "";
     const metaTitle = product?.SEO?.metaTitle?.trim() || getMetaTitle('Sản phẩm');

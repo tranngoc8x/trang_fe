@@ -100,7 +100,7 @@ const Footer = () => {
 
           {/* Newsletter */}
           <div className="footer-links">
-            <iframe src={isReady() ? getMapUrl() : ""} width="100%" height="300" style={{ border: '0' }} allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+            <iframe src={isReady() ? getMapUrl() : ""} width="100%" height="250" style={{ border: '0' }} allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
           </div>
         </div>
       </div>
