@@ -17,9 +17,12 @@ export default defineConfig({
       '@sections': path.resolve(__dirname, './src/components/sections')
     }
   },
-  // Cấu hình server để hỗ trợ client-side routing
+  // Cấu hình server để hỗ trợ client-side routing & HMR
   server: {
     historyApiFallback: true,
+    watch: {
+      usePolling: true,
+    },
   },
   // Cấu hình preview server (production build)
   preview: {

@@ -17,7 +17,6 @@ const Projects = () => {
                     sort: 'id:desc',
                     populate: {
                         'cover': {
-                            populate: true,
                             fields: ['url']
                         }
                     }

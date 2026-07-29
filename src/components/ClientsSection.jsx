@@ -111,7 +111,7 @@ const ClientsSection = ({ partner }) => {
                 },
               }}
               autoplay={{
-                delay: 3000,
+                delay: 5000,
                 disableOnInteraction: false,
               }}
               modules={[Autoplay, Pagination]}
@@ -130,8 +130,8 @@ const ClientsSection = ({ partner }) => {
                       </a>
                     ) : null}
                     <div className="p-2 mt-2 flex items-center justify-center">
-                      <a href={client?.website} target="_blank" rel="noopener noreferrer">
-                        <span className="text-gray-600 font-medium">{client ? client.title : 'Client'}</span>
+                      <a href={client?.website} target="_blank" rel="noopener noreferrer" className='min-h-16 flex items-center justify-center'>
+                        <span className="text-gray-600 font-small text-center">{client ? client.title : 'Client'}</span>
                       </a>
                     </div>
                   </div>

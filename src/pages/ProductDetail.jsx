@@ -16,11 +16,9 @@ const ProductDetail = () => {
                     filters: { slug },
                     populate: {
                         'image': {
-                            populate: true,
                             fields: ['url']
                         },
                         'avatar': {
-                            populate: true,
                             fields: ['url']
                         },
                         'dynamic_content': {

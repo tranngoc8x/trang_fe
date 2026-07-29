@@ -16,7 +16,6 @@ const ProjectDetail = () => {
                     filters: { slug },
                     populate: {
                         'cover': {
-                            populate: true,
                             fields: ['url']
                         }
                     }
