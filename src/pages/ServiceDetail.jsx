@@ -115,6 +115,11 @@ const ServiceDetail = () => {
                                                     <div className="font-semibold text-lg text-gray-800 text-center">
                                                         {item?.title || 'Tên sản phẩm'}
                                                     </div>
+                                                    <p className="pb-2 text-red-600 font-bold">
+                                                        {item?.price ? Number(item.price).toLocaleString('vi-VN') + ' đ' : 'Giá: Liên hệ'}
+                                                    </p>
+                                                    <p className="pb-2 text-sm">Mã SP: <strong className="text-blue-600 font-bold">{item?.sku}</strong>  </p>
+
                                                 </Link>
                                             </li>
                                         );

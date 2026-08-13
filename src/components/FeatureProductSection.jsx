@@ -23,7 +23,7 @@ const FeaturesProductSection = ({ service }) => {
         const response = await productService.getProducts(
           {
             populate: '*',
-            'pagination[limit]': 3,
+            'pagination[limit]': 4,
             filters: { 'show_in_home': true },
           }
         );
@@ -42,16 +42,17 @@ const FeaturesProductSection = ({ service }) => {
           <h2>Sản phẩm nổi bật</h2>
         </div>
 
-        <div className="features-grid">
+        <div className="grid gap-4 grid-cols-1 md:grid-cols-2 lg:grid-cols-4">
           {loading ? (
             <>
+              <FeatureSkeleton />
               <FeatureSkeleton />
               <FeatureSkeleton />
               <FeatureSkeleton />
             </>
           ) : (
             products.map((feature) => (
-              <Link to={`/san-pham/${feature.slug}`} key={feature.id} className="feature-card" style={{ textDecoration: 'none' }}>
+              <Link to={`/san-pham/${feature.slug}`} key={feature.id} className="border overflow-hidden border-gray-100" style={{ textDecoration: 'none' }}>
                 <div className="feature-icon">
                   {feature?.image || feature?.image?.url ? (
                     <img
@@ -63,8 +64,12 @@ const FeaturesProductSection = ({ service }) => {
                     <div className="w-full h-40 bg-gray-200 flex items-center justify-center rounded mb-4 text-gray-400"></div>
                   )}
                 </div>
-                <h3 className="feature-title">{feature.title}</h3>
-                <p className="feature-description">{feature.description}</p>
+                <h3 className="font-bold text-md px-4 py-2">{feature.title}</h3>
+                <p className="px-4 pb-2 text-red-600 font-bold">
+                  {feature?.price ? Number(feature.price).toLocaleString('vi-VN') + ' đ' : 'Liên hệ'}
+                </p>
+                <p className="px-4 pb-2 text-sm">Mã SP: <strong className="text-blue-600 font-bold">{feature?.sku}</strong>  </p>
+                <button className="px-2 !py-1 mx-4 text-white bg-primary btn btn-outline rounded-sm ">Chi tiết</button>
               </Link>
             ))
           )}
@@ -76,7 +81,7 @@ const FeaturesProductSection = ({ service }) => {
           </a>
         </div>
       </div>
-    </section>
+    </section >
   );
 };
 

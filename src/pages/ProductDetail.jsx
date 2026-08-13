@@ -73,6 +73,10 @@ const ProductDetail = () => {
                             <img src={imageUrl} alt={title} className="w-full h-auto rounded mb-6" />
                         )}
                         <h1 className="text-3xl font-bold text-gray-800 mb-4">{title}</h1>
+                        <p className="pb-2 text-red-600 font-bold">
+                            {product?.price ? Number(product.price).toLocaleString('vi-VN') + ' đ' : 'Giá: Liên hệ'}
+                        </p>
+                        <p className="pb-2 text-sm">Mã SP: <strong className="text-blue-600 font-bold">{product?.sku}</strong>  </p>
                         {description && (
                             <div className="text-gray-700 mb-4" dangerouslySetInnerHTML={{ __html: description }} />
                         )}
